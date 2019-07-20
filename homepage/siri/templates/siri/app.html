@@ -1,29 +1,79 @@
 {% load staticfiles %}
+{% load is_night %}
+
 
 <div id="siri-app-wrapper" class="bg-gradient-siri" style="height: 5000px">
 
-    <div class="container text-center text-white" style="position: sticky; top: 1rem; width: 100%; height: 700px;">
-        <div class="iphone-lockscreen" id="scroll-down-to-unlock" style="padding-top: 90px; font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 10px; opacity: 0;">
+    <div class="container text-center text-white" style="position: sticky; top: 2.5rem; width: 100%; height: 700px;">
+        <div class="iphone-lockscreen" id="scroll-down-to-unlock" style="padding-top: 90px; font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 10px;">
             <i class="fas fa-lock"></i> scroll down to unlock
         </div>
+        <div class="shadow-lg" id="iphone-background" style="z-index: -2; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0); background-image: url({% static 'img/apb.jpeg' %}); background-size: cover;"></div>
         <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 60px">{% now "G:i" %}</div>
         <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px">{% now "jS \o\f F Y" %}</div>
+        {% if now|is_night %}
+        <div id="iphone-do-not-disturb" class="iphone-lockscreen text-left shadow" style="width: 270px; border-radius: 10px; position: absolute; top: 250px; left: 50%; transform: translate(-50%, 0); background-color: rgba(0, 0, 0, 0.8);">
+            <div class="pl-2 pt-2 pr-2" style="color: #AAA; font-size: 10px;">DO NOT DISTURB DURING BEDTIME</div>
+            <div class="pl-2 pt-1 pr-2 pb-2" style="color: #DDD; font-size: 10px;">Calls will be silenced and notifications will appear in Notification Center.</div>
+        </div>
+        {% endif %}
+
+        <div id="iphone-message" class="iphone-lockscreen text-left text-dark shadow" style="width: 270px; border-radius: 10px; position: absolute;{% if now|is_night %}top: 320px;{% else %}top: 250px;{% endif %} left: 50%; transform: translate(-50%, 0); background-color: rgba(255, 255, 255, 0.8);">
+            <div class="pl-2 pt-2 pr-2" style="font-size: 10px;">CHAT APP</div>
+            <div class="pl-2 pt-1 pr-2" style="font-size: 10px;"><strong>Philipp Matthes</strong></div>
+            <div class="pl-2 pr-2 pb-2" style="font-size: 10px;">Hey, how is it going? My name is Philipp. Let me tell you something about myself. ✌</div>
+        </div>
+
         <div class="iphone-lockscreen" id="unlock-bar" style="height: 5px; width: 130px; border-radius: 5px; background-color: white; position: absolute; bottom: 35px; left: 50%; transform: translate(-50%, 0);"></div>
-        <img id="iphone" style="position: absolute; top: 10px; left: 50%; height: 700px; transform: translate(-50%, 0)" src="{% static 'img/iphone.png' %}">
+
+        <div class="iphone-app" style="height: 80px; width: 270px; position: absolute; background: rgba(0, 0, 0, 0.5); left: 50%; bottom: 38px; border-radius: 20px; transform: translate(-50%, 0); opacity: 0.0;"></div>
+
+        <div class="iphone-app row ml-0 mr-0" style="position: absolute; left: 50%; bottom: 53px; width: 270px; transform: translate(-50%, 0); opacity: 0.0;">
+            <div class="col pl-0 pr-0">
+                <a href="https://apps.apple.com/de/app/no2/id1301654346" target="_blank"><img src="{% static 'img/app1.jpg' %}" class="app-icon"></a>
+            </div>
+            <div class="col pl-0 pr-0">
+                <a href="https://apps.apple.com/de/app/sanduhr/id1298773811" target="_blank"><img src="{% static 'img/app2.jpg' %}" class="app-icon"></a>
+            </div>
+            <div class="col pl-0 pr-0">
+                <a href="https://apps.apple.com/de/app/benno-netzwerk/id1443769539" target="_blank"><img src="{% static 'img/app3.jpg' %}" class="app-icon"></a>
+            </div>
+            <div class="col pl-0 pr-0">
+                <a href="https://apps.apple.com/de/app/manni/id1347527695" target="_blank"><img src="{% static 'img/app4.jpg' %}" class="app-icon"></a>
+            </div>
+        </div>
+
+        <div class="iphone-app row ml-0 mr-0" style="position: absolute; left: 50%; top: 100px; width: 270px; transform: translate(-50%, 0); opacity: 0.0;">
+            <div class="col pl-0 pr-0">
+                <a class="iphone-app" href="https://apps.apple.com/de/app/lautst%C3%A4rke/id1296210225" target="_blank"><img src="{% static 'img/app5.jpg' %}" class="app-icon"></a>
+            </div>
+            <div class="col pl-0 pr-0">
+                <a class="iphone-app" href="https://apps.apple.com/de/app/pacebox/id1291956466" target="_blank"><img src="{% static 'img/app6.jpg' %}" class="app-icon"></a>
+            </div>
+            <div class="col pl-0 pr-0">
+                <img src="{% static 'img/telephone.png' %}" class="app-icon">
+            </div>
+            <div class="col pl-0 pr-0">
+                <img src="{% static 'img/message.jpg' %}" class="app-icon">
+            </div>
+        </div>
+
+        <div id="iphone-chat-background" class="text-left" style="z-index: 1; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0); background-color: #fff; scale: 0.0;">
+            <img src="{% static 'img/profile.jpeg' %}" style="width: 30px; height: 30px; border-radius: 15px; position: absolute; left: 13px; top: 47px;">
+            <div class="bg-secondary mt-5 ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">Hey, how is it going? My name is Philipp. Let me tell you something about myself. ✌</div>
+            <div id="message-1" class="bg-secondary ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I study Computer Science at TU Dresden (on Diploma, currently in the 7th semester).</div>
+            <div id="message-2" class="bg-secondary ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I work at TU Dresden as a developer and tutor since April 2018. Additionally, I am self-employed as a software developer and designer.</div>
+            <div id="message-3" class="bg-secondary ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I like 🏸 badminton, 🏂 snowboarding, 🚴🏼‍ cycling and 🏋🏻‍ any other kind of sports.</div>
+            <div id="message-4" class="bg-secondary ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">There is much more to say. Scroll down to see more!</div>
+        </div>
+
+        <img id="iphone" style="pointer-events:none; z-index: 2; position: absolute; top: 10px; left: 50%; height: 700px; transform: translate(-50%, 0)" src="{% static 'img/iphone.png' %}">
     </div>
 
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
-
-        anime({
-            targets: '#scroll-down-to-unlock',
-            opacity: [0.0, 1.0],
-            duration: 1000,
-            easing: 'easeInOutSine',
-            delay: 200,
-        })
 
         anime({
             targets:'#unlock-bar',
@@ -35,20 +85,76 @@
 
         var timeline = anime.timeline({
           easing: 'easeInOutSine',
-          duration: 750,
+          duration: 1500,
           autoplay: false,
         });
 
         timeline
             .add({
-                targets: '.iphone-lockscreen',
-                opacity: [1.0, 0.0],
-                duration: 50
+                targets: '#iphone-message',
+                opacity: [0.0, 1.0],
+                translateY: [30, 0],
+                duration: 100,
+                easing: 'easeInOutSine',
             })
             .add({
-                targets: '#iphone',
-                scale: [1.0, 2.0],
+                duration: 50,
+            })
+            .add({
+                targets: '.iphone-lockscreen',
                 opacity: [1.0, 0.0],
+                duration: 50,
+                easing: 'easeInOutSine',
+            })
+            .add({
+                targets: '.iphone-app',
+                scale: [0.0, 1.0],
+                opacity: [0.0, 1.0],
+                duration: 50,
+                easing: 'easeInOutSine',
+            })
+            .add({
+                targets: '#iphone-chat-background',
+                scale: [0.0, 1.0],
+                duration: 50,
+                easing: 'easeInOutSine',
+            })
+            .add({
+                targets: ['#iphone', '#iphone-background', '#iphone-chat-background'],
+                scale: [1.0, 1.2],
+                easing: 'easeInOutSine',
+                duration: 100,
+            })
+            .add({
+                targets: '#message-1',
+                opacity: [0.0, 1.0],
+                traslateY: [10, 0],
+                duration: 100,
+                easing: 'easeInOutSine',
+            })
+            .add({
+                targets: '#message-2',
+                opacity: [0.0, 1.0],
+                traslateY: [10, 0],
+                duration: 100,
+                easing: 'easeInOutSine',
+            })
+            .add({
+                targets: '#message-3',
+                opacity: [0.0, 1.0],
+                traslateY: [10, 0],
+                duration: 100,
+                easing: 'easeInOutSine',
+            })
+            .add({
+                targets: '#message-4',
+                opacity: [0.0, 1.0],
+                traslateY: [10, 0],
+                duration: 100,
+                easing: 'easeInOutSine',
+            })
+            .add({
+                duration: 200,
             })
 
         function onScroll() {
