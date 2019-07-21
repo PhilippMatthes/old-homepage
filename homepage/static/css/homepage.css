@@ -1,8 +1,13 @@
 
 
 .bg-gradient-siri {
-    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#1fa2ff+0,12d8fa+50,a6ffcb+100 */
-    background: #111;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#5433ff+0,20bdff+50,a5fecb+100 */
+    background: #5433ff; /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  #5433ff 0%, #20bdff 50%, #a5fecb 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,  #5433ff 0%,#20bdff 50%,#a5fecb 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  #5433ff 0%,#20bdff 50%,#a5fecb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5433ff', endColorstr='#a5fecb',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
 }
 
 .app-icon {

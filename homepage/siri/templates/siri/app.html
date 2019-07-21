@@ -2,13 +2,14 @@
 {% load is_night %}
 
 
-<div id="siri-app-wrapper" class="bg-gradient-siri" style="height: 5000px">
+<div id="siri-app-wrapper" class="bg-gradient-siri" style="height: 5000px;">
 
-    <div class="container text-center text-white" style="position: sticky; top: 2.5rem; width: 100%; height: 700px;">
+    <div class="container text-center text-white" style="position: sticky; top: 0; width: 100%; height: 700px;">
         <div class="iphone-lockscreen" id="scroll-down-to-unlock" style="padding-top: 90px; font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 10px;">
             <i class="fas fa-lock"></i> scroll down to unlock
         </div>
-        <div class="shadow-lg" id="iphone-background" style="z-index: -2; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0); background-image: url({% static 'img/apb.jpeg' %}); background-size: cover;"></div>
+        <div id="iphone-background" style="z-index: -2; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0); background-image: url({% static 'img/apb.jpeg' %}); background-size: cover;"></div>
+        <div id="iphone-background" style="z-index: -1; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0); background-color: rgba(0, 0, 0, 0.3);"></div>
         <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 60px">{% now "G:i" %}</div>
         <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px">{% now "jS \o\f F Y" %}</div>
         {% if now|is_night %}
@@ -51,23 +52,44 @@
                 <a class="iphone-app" href="https://apps.apple.com/de/app/pacebox/id1291956466" target="_blank"><img src="{% static 'img/app6.jpg' %}" class="app-icon"></a>
             </div>
             <div class="col pl-0 pr-0">
-                <img src="{% static 'img/telephone.png' %}" class="app-icon">
+                <a id="siri-button" href="#"><img src="{% static 'img/siri.jpg' %}" class="app-icon"></a>
             </div>
             <div class="col pl-0 pr-0">
                 <img src="{% static 'img/message.jpg' %}" class="app-icon">
             </div>
         </div>
 
-        <div id="iphone-chat-background" class="text-left" style="line-height: 120%; z-index: 1; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0); background-color: #fff; scale: 0.0;">
+        <div id="iphone-chat-background" class="text-left" style="line-height: 120%; z-index: 1; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0) scale(0); background-color: #fff;">
             <img src="{% static 'img/profile.jpeg' %}" style="width: 30px; height: 30px; border-radius: 15px; position: absolute; left: 13px; top: 47px;">
-            <div class="bg-secondary mt-5 ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">Hey, how is it going? My name is Philipp. Let me tell you something about myself. ✌</div>
-            <div id="message-1" class="bg-secondary ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I study Computer Science at TU Dresden (on Diploma, currently in the 7th semester).</div>
-            <div id="message-2" class="bg-secondary ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I work at TU Dresden as a developer and tutor since April 2018. Additionally, I am self-employed as a software developer and designer.</div>
-            <div id="message-3" class="bg-secondary ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I like 🏸 badminton, 🏂 snowboarding, 🚴🏼‍ cycling and 🏋🏻‍ any other kind of sports.</div>
-            <div id="message-4" class="bg-secondary ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">There is much more to say. Scroll down to see more!</div>
+            <div class="bg-dark mt-5 ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">Hey, how is it going? My name is Philipp. Let me tell you something about myself. ✌</div>
+            <div id="message-1" class="bg-dark ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I study Computer Science at TU Dresden (on Diploma, currently in the 7th semester).</div>
+            <div id="message-2" class="bg-dark ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I work at TU Dresden as a developer and tutor since April 2018. Additionally, I am self-employed as a software developer and designer.</div>
+            <div id="message-3" class="bg-dark ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I like 🏸 badminton, 🏂 snowboarding, 🚴🏼‍ cycling and 🏋🏻‍ any other kind of sports.</div>
+            <div id="message-4" class="bg-dark ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">If you are interested in software development, design or teaching, feel free to contact me!</div>
         </div>
 
-        <img id="iphone" style="pointer-events:none; z-index: 2; position: absolute; top: 10px; left: 50%; height: 700px; transform: translate(-50%, 0)" src="{% static 'img/iphone.png' %}">
+        <div id="iphone-siri-background" class="text-left" style="line-height: 120%; z-index: 5; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0) scale(0); background: url({% static 'img/siri-background.png' %});">
+            <div id="iphone-siri-greeting" class="mt-5 ml-3 mr-3 mb-1 p-2" style="opacity: 0.0;">Hey, I am Philipp. How can I help you?</div>
+            <audio id="iphone-siri-greeting-audio" src="{% static 'audio/greeting.m4a' %}"></audio>
+            <a id="iphone-siri-call-explanation" href="#" class="mt-5 ml-3 mr-3 mb-1 p-2 text-white"><span class="fas fa-chevron-right"></span> How does this demo work?</a>
+            <div id="iphone-siri-explanation" class="ml-3 mr-3 mb-1 p-2" style="font-size: 12px; opacity: 0;">
+                This seems to be my voice, but it is not.
+                It is a voice, which is generated by a convolutional neural network.
+                This network is a so called "text to speech" algorithm.
+                That said, it takes only text as an input and outputs a human-like voice.
+                Still, it sounds a bit robot-like, but it is definitely an improvement over other approaches.
+                My voice, the voice of Philipp, actually came from a female voice, on which this network was trained first.
+                Using over seven hundred thousand steps, the network learned to pronounciate english words correctly.
+                Because, however, only female samples from audio books were used, the resulting voice was also female.
+                Interestingly, it took only a few thousand steps to apply so called "transfer learning" to transfer the voice into mine.
+            </div>
+            <audio id="iphone-siri-explanation-audio" src="{% static 'audio/explanation.m4a' %}"></audio>
+            <button class="btn btn-outline-light" id="iphone-siri-leave-demo" style="position: absolute; bottom: 100px; left: 50%; transform: translate(-50%, 0); border-radius: 100px;"><span class="fas fa-times"></span></button>
+            <div style="position: absolute; bottom: 0; width: 300px; height: 100px; left: 50%; transform: translate(-50%, 0);" id="siri-container"></div>
+        </div>
+
+        <img id="iphone" style="pointer-events:none; z-index: 10; position: absolute; top: 10px; left: 50%; height: 700px; transform: translate(-50%, 0)" src="{% static 'img/iphone.png' %}">
+        <img id="iphone-shadow" style="z-index: -10; pointer-events:none; z-index: 10; position: absolute; bottom: -25px; left: 50%; transform: translate(-50%, 0); opacity: 0.5;" src="{% static 'img/iphone-shadow.png' %}">
     </div>
 
 </div>
@@ -75,13 +97,100 @@
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
 
+        var siriWave = new SiriWave({
+        	container: document.getElementById('siri-container'),
+            style: "ios9",
+            amplitude: 0.1,
+            autostart: true,
+        });
+
+        $("#iphone-message").click(function() {
+            var element = $("#siri-app-wrapper");
+            $([document.documentElement, document.body]).animate({
+                scrollTop: 1700
+            }, 2000);
+        });
+
+        $("audio").on('playing', function() {
+            anime({
+                targets: siriWave,
+                amplitude: 2,
+                duration: 200,
+                easing: 'easeInOutSine',
+            });
+        });
+
+        $("audio").on('ended', function() {
+            anime({
+                targets: siriWave,
+                amplitude: 0.1,
+                duration: 200,
+                easing: 'easeInOutSine',
+            });
+        });
+
+        $("#siri-button").click(function() {
+            anime({
+                targets: '#iphone-siri-background',
+                opacity: 1.0,
+                scale: 1.0,
+                duration: 200,
+                easing: 'easeInOutSine',
+            });
+            anime({
+                targets: '#iphone-siri-greeting',
+                opacity: 1.0,
+                translateY: [10, 0],
+                duration: 200,
+                easing: 'easeInOutSine',
+            });
+            $("#iphone-siri-greeting-audio").trigger("play");
+        });
+
+        $("#iphone-siri-leave-demo").click(function() {
+            anime({
+                targets: '#iphone-siri-call-explanation',
+                opacity: 1.0,
+                duration: 200,
+            });
+            anime({
+                targets: '#iphone-siri-explanation',
+                opacity: 0.0,
+                translateY: 0,
+                duration: 200,
+            });
+            anime({
+                targets: '#iphone-siri-background',
+                scale: 0.0,
+                opacity: 0.0,
+                duration: 200,
+                easing: 'easeInOutSine',
+            });
+            $("#iphone-siri-explanation-audio").trigger("pause");
+        });
+
+        $("#iphone-siri-call-explanation").click(function() {
+            anime({
+                targets: '#iphone-siri-call-explanation',
+                opacity: 0.0,
+                duration: 200,
+            });
+            anime({
+                targets: '#iphone-siri-explanation',
+                opacity: 1.0,
+                translateY: -20,
+                duration: 200,
+            });
+            $("#iphone-siri-explanation-audio").trigger("play");
+        });
+
         anime({
             targets:'#unlock-bar',
             translateY: [0, -5, 0],
-            loop: true,
             duration: 3000,
+            delay: 500,
             easing: 'easeInOutSine',
-        })
+        });
 
         var timeline = anime.timeline({
           easing: 'easeInOutSine',
@@ -118,12 +227,6 @@
                 scale: [0.0, 1.0],
                 duration: 50,
                 easing: 'easeInOutSine',
-            })
-            .add({
-                targets: ['#iphone', '#iphone-background', '#iphone-chat-background'],
-                scale: [1.0, 1.2],
-                easing: 'easeInOutSine',
-                duration: 100,
             })
             .add({
                 targets: '#message-1',
