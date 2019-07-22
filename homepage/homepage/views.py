@@ -1,4 +1,9 @@
 from django.shortcuts import render
 
+from siri.models import Forecast
+
 def home(request):
-    return render(request, "homepage/home.html")
+    forecast = Forecast.objects.last()
+    return render(request, "homepage/home.html", {
+        "forecast": forecast
+    })
