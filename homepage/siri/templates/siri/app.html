@@ -1,28 +1,35 @@
 {% load staticfiles %}
 {% load is_night %}
 
+<div id="siri-app-wrapper" class="bg-gradient-siri" style="height: 5000px; position: relative;">
 
-<div id="siri-app-wrapper" class="bg-gradient-siri" style="height: 5000px;">
+    <div id="siri-app-sticky-wrapper" class="text-center text-white simulate-sticky-top" style="height: 700px;">
 
-    <div class="container text-center text-white" style="position: sticky; top: 0; width: 100%; height: 700px;">
         <div class="iphone-lockscreen" id="scroll-down-to-unlock" style="padding-top: 90px; font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 10px;">
             <i class="fas fa-lock"></i> scroll down to unlock
         </div>
-        <div id="iphone-background" style="z-index: -2; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0); background-image: url({% static 'img/apb.jpeg' %}); background-size: cover;"></div>
-        <div id="iphone-background" style="z-index: -1; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0); background-color: rgba(0, 0, 0, 0.3);"></div>
         <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 60px">{% now "G:i" %}</div>
         <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px">{% now "jS \o\f F Y" %}</div>
+
         {% if now|is_night %}
         <div id="iphone-do-not-disturb" class="iphone-lockscreen text-left shadow" style="width: 270px; border-radius: 10px; position: absolute; top: 250px; left: 50%; transform: translate(-50%, 0); background-color: rgba(0, 0, 0, 0.8);">
-            <div class="pl-2 pt-2 pr-2" style="color: #AAA; font-size: 10px;">DO NOT DISTURB DURING BEDTIME</div>
-            <div class="pl-2 pt-1 pr-2 pb-2" style="color: #DDD; font-size: 10px;">Calls will be silenced and notifications will appear in Notification Center.</div>
+            <div class="pl-2 pt-2 pr-2" style="color: #AAA; font-size: 10px; margin-right: 2rem;">DO NOT DISTURB DURING BEDTIME</div>
+            <i class="fas fa-moon" style="position: absolute; right: 1rem; top: 25px;"></i>
+            <div class="pl-2 pt-1 pr-2 pb-2" style="color: #DDD; font-size: 10px; margin-right: 2rem;">Calls will be silenced and notifications will appear in Notification Center.</div>
         </div>
         {% endif %}
 
         <div id="iphone-message" class="iphone-lockscreen text-left text-dark shadow" style="width: 270px; border-radius: 10px; position: absolute;{% if now|is_night %}top: 320px;{% else %}top: 250px;{% endif %} left: 50%; transform: translate(-50%, 0); background-color: rgba(255, 255, 255, 0.8);">
-            <div class="pl-2 pt-2 pr-2" style="font-size: 10px;">CHAT APP</div>
-            <div class="pl-2 pt-1 pr-2" style="font-size: 10px;"><strong>Philipp Matthes</strong></div>
-            <div class="pl-2 pr-2 pb-2" style="font-size: 10px;">Hey, how is it going? My name is Philipp. Let me tell you something about myself. ✌</div>
+            <div class="pl-2 pt-2 pr-2" style="font-size: 10px; margin-right: 2rem;">CHAT APP</div>
+            <i class="fas fa-comments" style="position: absolute; right: 1rem; top: 35px;"></i>
+            <div class="pl-2 pt-1 pr-2" style="font-size: 10px; margin-right: 2rem;"><strong>Philipp Matthes</strong></div>
+            <div class="pl-2 pr-2 pb-2" style="font-size: 10px; margin-right: 2rem;">Hey, how is it going? My name is Philipp. Let me tell you something about myself. ✌</div>
+        </div>
+
+        <div class="iphone-lockscreen siri-button text-left shadow text-dark" style="width: 270px; border-radius: 10px; position: absolute; bottom: 100px; left: 50%; transform: translate(-50%, 0); background-color: rgba(255, 255, 255, 0.8);">
+            <div class="pl-2 pt-2 pr-2" style="font-size: 10px; margin-right: 2rem;">UPDATES HAVE BEEN INSTALLED</div>
+            <i class="fas fa-cogs" style="position: absolute; right: 1rem; top: 25px;"></i>
+            <div class="pl-2 pt-1 pr-2 pb-2" style="font-size: 10px; margin-right: 2rem;">We added a new Siri voice. Click this notification to test it.</div>
         </div>
 
         <div class="iphone-lockscreen" id="unlock-bar" style="height: 5px; width: 130px; border-radius: 5px; background-color: white; position: absolute; bottom: 35px; left: 50%; transform: translate(-50%, 0);"></div>
@@ -52,7 +59,7 @@
                 <a class="iphone-app" href="https://apps.apple.com/de/app/pacebox/id1291956466" target="_blank"><img src="{% static 'img/app6.jpg' %}" class="app-icon"></a>
             </div>
             <div class="col pl-0 pr-0">
-                <a id="siri-button" onclick="window.playGreetingAudio();">
+                <a class="siri-button" onclick="window.playGreetingAudio();">
                     <img src="{% static 'img/siri.jpg' %}" class="app-icon">
                 </a>
             </div>
@@ -61,7 +68,7 @@
             </div>
         </div>
 
-        <div id="iphone-chat-background" class="text-left" style="line-height: 120%; z-index: 1; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0) scale(0); background-color: #fff;">
+        <div id="iphone-chat-background" class="text-left" style="line-height: 120%; z-index: 1; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0) scale(0); {% if now|is_night %}background-color: #111;{% else %} background-color: #fff;{% endif %}">
             <img src="{% static 'img/profile.jpeg' %}" style="width: 30px; height: 30px; border-radius: 15px; position: absolute; left: 13px; top: 47px;">
             <div class="bg-dark mt-5 ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">Hey, how is it going? My name is Philipp. Let me tell you something about myself. ✌</div>
             <div id="message-1" class="bg-dark ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I study Computer Science at TU Dresden (on Diploma, currently in the 7th semester).</div>
@@ -91,7 +98,7 @@
         </div>
 
         <img id="iphone" style="pointer-events:none; z-index: 10; position: absolute; top: 10px; left: 50%; height: 700px; transform: translate(-50%, 0)" src="{% static 'img/iphone.png' %}">
-        <img id="iphone-shadow" style="z-index: -10; pointer-events:none; z-index: 10; position: absolute; bottom: -25px; left: 50%; transform: translate(-50%, 0); opacity: 0.5;" src="{% static 'img/iphone-shadow.png' %}">
+        <img id="iphone-shadow" style="pointer-events:none; position: absolute; bottom: -25px; left: 50%; transform: translate(-50%, 0); opacity: 0.5;" src="{% static 'img/iphone-shadow.png' %}">
     </div>
 
 </div>
@@ -131,7 +138,7 @@
             });
         });
 
-        $("#siri-button").click(function() {
+        $(".siri-button").click(function() {
             $("#iphone-siri-greeting-audio").trigger("play");
             anime({
                 targets: '#iphone-siri-background',
@@ -200,14 +207,33 @@
           autoplay: false,
         });
 
-        timeline
-            .add({
+        var element = $("#siri-app-wrapper");
+        var top = element.offset().top;
+        var height = element.innerHeight();
+        var deltaTop = window.scrollY - top;
+
+        if (deltaTop <= 0) {
+            anime({
                 targets: '#iphone-message',
                 opacity: [0.0, 1.0],
-                translateY: [30, 0],
-                duration: 100,
+                translateY: [10, 0],
+                duration: 800,
+                delay: 300,
                 easing: 'easeInOutSine',
-            })
+            });
+            timeline.add({
+                duration: 50
+            });
+        } else {
+            timeline.add({
+                targets: '#iphone-message',
+                opacity: 1.0,
+                duration: 50,
+                easing: 'easeInOutSine',
+            });
+        }
+
+        timeline
             .add({
                 duration: 50,
             })
@@ -262,7 +288,7 @@
                 duration: 200,
             })
 
-        function onScroll() {
+        function layout() {
             var element = $("#siri-app-wrapper");
             var top = element.offset().top;
             var height = element.innerHeight();
@@ -270,8 +296,30 @@
             var percentage = Math.min(Math.max(deltaTop, 0) / height, 1);
 
             timeline.seek(timeline.duration * percentage);
+
+            var stickyWrapper = $("#siri-app-sticky-wrapper");
+            var isBelow = deltaTop > (5000 - window.innerHeight);
+            var isInside = window.pageYOffset >= top && !isBelow;
+            var iphoneHeight = 700;
+            var distToTopOrBottom = (window.innerHeight - iphoneHeight) / 2;
+            if (isInside) {
+                stickyWrapper.addClass("simulate-sticky-fixed");
+                stickyWrapper.removeClass("simulate-sticky-absolute");
+                stickyWrapper.css({"top": distToTopOrBottom, "bottom": "inherit"})
+            } else if(isBelow) {
+                stickyWrapper.removeClass("simulate-sticky-fixed");
+                stickyWrapper.addClass("simulate-sticky-absolute");
+                stickyWrapper.css({"bottom": distToTopOrBottom, "top": "inherit"})
+            } else {
+                stickyWrapper.removeClass("simulate-sticky-fixed");
+                stickyWrapper.addClass("simulate-sticky-absolute");
+                stickyWrapper.css({"top": distToTopOrBottom, "bottom": "inherit"})
+            }
         }
 
-        window.addEventListener("scroll", onScroll);
+        layout();
+
+        window.addEventListener("scroll", layout);
+        window.addEventListener("resize", layout);
     });
 </script>

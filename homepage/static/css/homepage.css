@@ -15,3 +15,13 @@
     height: 50px;
     border-radius: 15px;
 }
+
+.simulate-sticky-absolute {
+    position: absolute;
+    width: 100%;
+}
+
+.simulate-sticky-fixed {
+    position: fixed;
+    width: 100%;
+}
