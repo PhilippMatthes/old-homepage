@@ -24,9 +24,9 @@ def get_weather_data():
     r = requests.get('http://api.openweathermap.org/data/2.5/weather?q=Dresden&APPID=234aa0e2c69010e09edd12b9f018ba8c&units=metric')
     weather_data = r.json()
 
-    text = """Here is the forecast of Dresden, Germany at {date_str}:
-It is {main}. Temperature is at {temperature} degrees.
-The wind is {wind_speed} kilometers per hour {wind_direction}.""".format(
+    text = """Here is the current forecast of Dresden, Germany:
+It is {main}. The temperature is currently at {temperature} degrees.
+The wind is {wind_speed} kilometers per hour in direction {wind_direction}.""".format(
         date_str = timezone.now().strftime("%I %M %p"),
         main = weather_data["weather"][0]["main"].lower(),
         temperature = weather_data["main"]["temp"],
