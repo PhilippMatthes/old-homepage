@@ -5,8 +5,6 @@ import os
 import wave
 import tempfile
 
-from pydub import AudioSegment
-
 from django.core.management.base import BaseCommand
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils import timezone
@@ -38,17 +36,7 @@ The wind is {wind_speed} kilometers per hour {wind_direction}.""".format(
     ).strip()
 
     with tempfile.TemporaryDirectory() as tempdir:
-        feed_forward(text, str(tempdir))
-        infiles = [f for f in os.listdir(tempdir)]
-        print(infiles)
-        outfile = tempdir + "/forecast.wav"
-
-        clip = AudioSegment.from_wav(tempdir + "/" + infiles[0])
-        print(infiles[0])
-        for infile in sorted(infiles[1:]):
-            print(infile)
-            clip += AudioSegment.from_wav(tempdir + "/" + infile)
-        clip.export(outfile, format="wav")
+        outfile = feed_forward(text, str(tempdir))
 
         with open(outfile, 'rb') as f:
             audio = SimpleUploadedFile("forecast_{}.wav".format(str(timezone.now())), f.read())

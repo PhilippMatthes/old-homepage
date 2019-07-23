@@ -53,7 +53,11 @@ def feed_forward(text, target_dir):
         # Generate wav files
         if not os.path.exists("samples"):
             os.makedirs("samples")
+        wavs = []
         for i, mag in enumerate(Z):
             print("Working on file", i+1)
             wav = spectrogram2wav(mag)
-            write(target_dir + "/{}.wav".format(i+1), hp.sr, wav)
+            wavs.append(wav)
+        output = np.concatenate(wavs, axis=0)
+        write(target_dir + "/output.wav", hp.sr, output)
+        return target_dir + "/output.wav"
