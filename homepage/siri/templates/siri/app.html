@@ -1,7 +1,7 @@
 {% load staticfiles %}
 {% load is_night %}
 
-<div id="siri-app-wrapper" class="bg-gradient-siri" style="height: 5000px; position: relative;">
+<div id="siri-app-wrapper" class="animate-background-transition bg-gradient-siri-{{ gradient }}" style="height: 5000px; position: relative;">
 
     <div id="siri-app-sticky-wrapper" class="text-center text-white simulate-sticky-top" style="height: 700px;">
 
@@ -10,6 +10,10 @@
         </div>
         <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 60px">{% now "G:i" %}</div>
         <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px">{% now "jS \o\f F Y" %}</div>
+        <div class="iphone-lockscreen" style="width: 270px; border-radius: 10px; position: absolute; bottom: 100px; left: 50%; transform: translate(-50%, 0); background-color: rgba(0, 0, 0, 0.8);">
+            <i id="iphone-lightbulb-button" class="fas hoverable-icon-lockscreen fa-lightbulb shadow-sm" style="background: rgba(0, 0, 0, 0.3); padding: 10px; width: 35px; border-radius: 20px; position: absolute; left: 20px;"></i>
+            <i id="iphone-camera-button" class="fas hoverable-icon-lockscreen fa-camera shadow-sm" style="background: rgba(0, 0, 0, 0.3); padding: 10px; width: 35px; border-radius: 20px; position: absolute; right: 20px;"></i>
+        </div>
 
         {% if now|is_night %}
         <div id="iphone-do-not-disturb" class="iphone-lockscreen text-left shadow" style="width: 270px; border-radius: 10px; position: absolute; top: 250px; left: 50%; transform: translate(-50%, 0); background-color: rgba(0, 0, 0, 0.8);">
@@ -19,14 +23,14 @@
         </div>
         {% endif %}
 
-        <div id="iphone-message" class="iphone-lockscreen text-left text-dark shadow" style="width: 270px; border-radius: 10px; position: absolute;{% if now|is_night %}top: 320px;{% else %}top: 250px;{% endif %} left: 50%; transform: translate(-50%, 0); background-color: rgba(255, 255, 255, 0.8);">
+        <div id="iphone-message" class="iphone-lockscreen scroll-to-messages text-left text-dark shadow" style="width: 270px; border-radius: 10px; position: absolute;{% if now|is_night %}top: 320px;{% else %}top: 250px;{% endif %} left: 50%; transform: translate(-50%, 0); background-color: rgba(255, 255, 255, 0.8);">
             <div class="pl-2 pt-2 pr-2" style="font-size: 10px; margin-right: 2rem;">CHAT APP</div>
             <i class="fas fa-comments" style="position: absolute; right: 1rem; top: 35px;"></i>
             <div class="pl-2 pt-1 pr-2" style="font-size: 10px; margin-right: 2rem;"><strong>Philipp Matthes</strong></div>
             <div class="pl-2 pr-2 pb-2" style="font-size: 10px; margin-right: 2rem;">Hey, how is it going? My name is Philipp. Let me tell you something about myself. ✌</div>
         </div>
 
-        <div class="iphone-lockscreen siri-button text-left shadow text-dark" style="width: 270px; border-radius: 10px; position: absolute; bottom: 100px; left: 50%; transform: translate(-50%, 0); background-color: rgba(255, 255, 255, 0.8);">
+        <div class="iphone-lockscreen siri-button text-left shadow text-dark" style="width: 270px; border-radius: 10px; position: absolute; bottom: 130px; left: 50%; transform: translate(-50%, 0); background-color: rgba(255, 255, 255, 0.8);">
             <div class="pl-2 pt-2 pr-2" style="font-size: 10px; margin-right: 2rem;">UPDATES HAVE BEEN INSTALLED</div>
             <i class="fas fa-cogs" style="position: absolute; right: 1rem; top: 25px;"></i>
             <div class="pl-2 pt-1 pr-2 pb-2" style="font-size: 10px; margin-right: 2rem;">We added a new Siri voice. Click this notification to test it.</div>
@@ -54,17 +58,22 @@
         <div class="iphone-app row ml-0 mr-0" style="position: absolute; left: 50%; top: 100px; width: 270px; transform: translate(-50%, 0); opacity: 0.0;">
             <div class="col pl-0 pr-0">
                 <a class="iphone-app" href="https://apps.apple.com/de/app/lautst%C3%A4rke/id1296210225" target="_blank"><img src="{% static 'img/app5.jpg' %}" class="app-icon"></a>
+                <div style="font-size: 10px; margin-top: 1px;">Loudness</div>
             </div>
             <div class="col pl-0 pr-0">
                 <a class="iphone-app" href="https://apps.apple.com/de/app/pacebox/id1291956466" target="_blank"><img src="{% static 'img/app6.jpg' %}" class="app-icon"></a>
+                <div style="font-size: 10px; margin-top: 1px;">Pacebox</div>
             </div>
             <div class="col pl-0 pr-0">
                 <a class="siri-button">
                     <img src="{% static 'img/siri.jpg' %}" class="app-icon">
                 </a>
+                <div style="font-size: 10px; margin-top: 1px;">"Siri"</div>
             </div>
             <div class="col pl-0 pr-0">
-                <img src="{% static 'img/message.jpg' %}" class="app-icon">
+                <div class="bg-danger" style="width: 20px; height: 20px; position: absolute; right: 1px; top: -6px; border-radius: 10px; font-size: 12px; padding-top: 2px;">1</div>
+                <a class="scroll-to-messages"><img src="{% static 'img/message.jpg' %}" class="app-icon"></a>
+                <div style="font-size: 10px; margin-top: 1px;">Messages</div>
             </div>
         </div>
 
@@ -87,6 +96,7 @@
             {% if forecast %}
             <div id="iphone-siri-weather" class="ml-3 mr-3 mb-1 p-2" style="position: absolute; top: 150px; left: 0; font-size: 12px; transform: scale(0)">
                 {{ forecast.text }}
+                <br><br><strong>Note: This voice currently depends on WAV files. It might not play on iOS devices.</strong>
             </div>
             {% endif %}
             <div id="iphone-siri-explanation" class="ml-3 mr-3 mb-1 p-2" style="position: absolute; top: 150px; left: 0; font-size: 12px; transform: scale(0)">
@@ -109,6 +119,14 @@
             <div style="position: absolute; bottom: 0; width: 300px; height: 100px; left: 50%; transform: translate(-50%, 0);" id="siri-container"></div>
         </div>
 
+        <div style="position: absolute; width: 270px; top: 0; left: 50%; transform: translate(-50%, 0); z-index: 12;">
+            <div style="position: absolute; left: 10px; top: 54px; font-size: 10px;">{% now "G:i" %} <span class="fas fa-location-arrow"></span></div>
+            <div style="position: absolute; right: 8px; top: 54px; font-size: 10px;"><span class="fas fa-signal"></span> <span class="fas fa-wifi"></span> <span class="fas fa-battery-full"></span></div>
+            <div id="iphone-face-id-flash-1" class="iphone-face-id-flash" style="width: 10px; height: 10px; position: absolute; left: 80px; top: 51px; opacity: 0;"></div>
+            <div id="iphone-face-id-flash-2" class="iphone-face-id-flash" style="width: 10px; height: 10px; position: absolute; left: 100px; top: 51px; opacity: 0;"></div>
+            <div id="iphone-face-id-flash-3" class="iphone-face-id-flash" style="width: 10px; height: 10px; position: absolute; right: 80px; top: 51px; opacity: 0;"></div>
+
+        </div>
         <img id="iphone" style="pointer-events:none; z-index: 10; position: absolute; top: 10px; left: 50%; height: 700px; transform: translate(-50%, 0)" src="{% static 'img/iphone.png' %}">
         <img id="iphone-shadow" style="pointer-events:none; position: absolute; bottom: -25px; left: 50%; transform: translate(-50%, 0); opacity: 0.5;" src="{% static 'img/iphone-shadow.png' %}">
     </div>
@@ -125,7 +143,41 @@
             autostart: true,
         });
 
-        $("#iphone-message").click(function() {
+        var flashes = ["#iphone-face-id-flash-1", "#iphone-face-id-flash-2", "#iphone-face-id-flash-3"];
+        for (var i = 0; i < 3; i += 1) {
+            var randomNumberOfFlashes = Math.max(1, Math.floor(Math.random() * 10));
+            for (var n = 0; n < randomNumberOfFlashes; n += 1) {
+                var randomDelay = 500 + Math.random() * 400;
+                console.log(flashes[i], randomDelay);
+                anime({
+                    targets: flashes[i],
+                    opacity: [0.0, 0.6, 0.0],
+                    delay: randomDelay,
+                    easing: "linear",
+                    duration: 100,
+                });
+            }
+        }
+
+        $(".hoverable-icon-lockscreen").click(function() {
+            anime({
+                targets: this,
+                scale: [1.4, 1.0],
+                duration: 400,
+                easing: 'spring',
+            });
+        });
+
+        var currentGradient = {{gradient}};
+        var numOfGradients = 4;
+        $("#iphone-lightbulb-button").click(function() {
+            var elem = $("#siri-app-wrapper");
+            elem.removeClass("bg-gradient-siri-" + currentGradient);
+            currentGradient = (currentGradient + 1) % numOfGradients;
+            elem.addClass("bg-gradient-siri-" + currentGradient);
+        });
+
+        $(".scroll-to-messages").click(function() {
             var element = $("#siri-app-wrapper");
             $([document.documentElement, document.body]).animate({
                 scrollTop: 1700
