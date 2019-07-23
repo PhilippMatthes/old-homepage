@@ -186,6 +186,7 @@
                 duration: 200,
                 easing: 'easeInOutSine',
             });
+            $("#iphone-siri-greeting-audio").trigger("pause");
             $("#iphone-siri-explanation-audio").trigger("pause");
             $("#iphone-siri-weather-audio").trigger("pause");
         });
@@ -201,12 +202,14 @@
                 scale: 1.0,
                 duration: 200,
             });
+            $("#iphone-siri-greeting-audio").trigger("pause");
+            $("#iphone-siri-weather-audio").trigger("pause");
             $("#iphone-siri-explanation-audio").trigger("play");
         });
 
         $("#iphone-siri-call-weather").click(function() {
             anime({
-                targets: '#iphone-siri-weather',
+                targets: '#iphone-siri-explanation',
                 scale: 0.0,
                 duration: 200,
             });
@@ -215,6 +218,8 @@
                 scale: 1.0,
                 duration: 200,
             });
+            $("#iphone-siri-greeting-audio").trigger("pause");
+            $("#iphone-siri-explanation-audio").trigger("pause");
             $("#iphone-siri-weather-audio").trigger("play");
         });
 
