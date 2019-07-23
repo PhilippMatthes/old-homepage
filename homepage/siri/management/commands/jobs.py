@@ -25,12 +25,11 @@ def get_weather_data():
     weather_data = r.json()
 
     text = """Here is the forecast of Dresden, Germany at {date_str}:
-It is {main}. Temperatures peak from {temperature_min} to {temperature_max} degrees.
+It is {main}. Temperature is at {temperature} degrees.
 The wind is {wind_speed} kilometers per hour {wind_direction}.""".format(
         date_str = timezone.now().strftime("%I %M %p"),
         main = weather_data["weather"][0]["main"].lower(),
-        temperature_min = weather_data["main"]["temp_min"],
-        temperature_max = weather_data["main"]["temp_max"],
+        temperature = weather_data["main"]["temp"],
         wind_speed = weather_data["wind"]["speed"],
         wind_direction = deg_to_words(int(weather_data["wind"]["deg"])),
     ).strip()
