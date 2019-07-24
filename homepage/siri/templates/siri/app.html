@@ -434,6 +434,7 @@
                 // 10 is half the size of the ball
                 // It center the positioning point to the center of the ball
                 translatable.css("translate", "transform(" + x + "px, " + y + "px);");
+                translatable.css("translate", "-webkit-transform(" + x + "px, " + y + "px);");
             }
 
             window.addEventListener('devicemotion', onDeviceMotion, false);
