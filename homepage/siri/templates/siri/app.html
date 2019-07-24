@@ -5,6 +5,10 @@
 
     <div id="siri-app-sticky-wrapper" class="text-center text-white simulate-sticky-top" style="height: 700px;">
 
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <div class="translatable" style="background-color: white; width: 50px; height: 50px;"></div>
+        </div>
+
         <div class="iphone-lockscreen" id="scroll-down-to-unlock" style="padding-top: 90px; font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 10px;">
             <i class="fas fa-lock"></i> scroll down to unlock
         </div>
@@ -403,5 +407,37 @@
 
         window.addEventListener("scroll", layout);
         window.addEventListener("resize", layout);
+
+
+        {% if beta %}
+        if ('DeviceMotionEvent' in window) {
+            var elem = $("#siri-app-wrapper");
+            var maxX = elem.innerWidth();
+            var maxY = elem.innerHeight();
+
+            var translatable = $(".translatable");
+
+            var onDeviceMotion = function (event) {
+                var x = event.beta;  // In degree in the range [-180,180]
+                var y = event.gamma; // In degree in the range [-90,90]
+
+                // Because we don't want to have the device upside down
+                // We constrain the x value to the range [-90,90]
+                if (x >  90) { x =  90};
+                if (x < -90) { x = -90};
+
+                // To make computation easier we shift the range of
+                // x and y to [0,180]
+                x += 90;
+                y += 90;
+
+                // 10 is half the size of the ball
+                // It center the positioning point to the center of the ball
+                translatable.css("translate", "translate: transform(" + x + "px, " + y + "px);");
+            }
+
+            window.addEventListener('devicemotion', onDeviceMotion, false);
+        }
+        {% endif %}
     });
 </script>

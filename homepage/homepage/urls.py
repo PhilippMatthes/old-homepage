@@ -24,6 +24,7 @@ from . import settings
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
+    url(r'^beta/', views.beta, name='beta'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
