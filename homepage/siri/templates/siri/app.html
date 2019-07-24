@@ -418,7 +418,6 @@
             var translatable = $(".translatable");
 
             var onDeviceMotion = function (event) {
-                translatable.text(event);
                 var x = event.beta;  // In degree in the range [-180,180]
                 var y = event.gamma; // In degree in the range [-90,90]
 
@@ -434,7 +433,7 @@
 
                 // 10 is half the size of the ball
                 // It center the positioning point to the center of the ball
-                translatable.css("translate", "translate: transform(" + x + "px, " + y + "px);");
+                translatable.css("translate", "transform(" + x + "px, " + y + "px);");
             }
 
             window.addEventListener('devicemotion', onDeviceMotion, false);
