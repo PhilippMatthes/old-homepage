@@ -418,6 +418,7 @@
             var translatable = $(".translatable");
 
             var onDeviceMotion = function (event) {
+                translatable.text(event);
                 var x = event.beta;  // In degree in the range [-180,180]
                 var y = event.gamma; // In degree in the range [-90,90]
 
