@@ -13,8 +13,8 @@
             <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 60px">{% now "G:i" %}</div>
             <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px">{% now "jS \o\f F Y" %}</div>
             <div class="iphone-lockscreen" style="width: 270px; border-radius: 10px; position: absolute; bottom: 100px; left: 50%; transform: translate(-50%, 0); background-color: rgba(0, 0, 0, 0.8);">
-                <i id="iphone-lightbulb-button" class="fas hoverable-icon-lockscreen fa-lightbulb shadow-sm" style="background: rgba(0, 0, 0, 0.3); padding: 10px; width: 35px; border-radius: 20px; position: absolute; left: 20px;"></i>
-                <i id="iphone-camera-button" class="fas hoverable-icon-lockscreen fa-camera shadow-sm" style="background: rgba(0, 0, 0, 0.3); padding: 10px; width: 35px; border-radius: 20px; position: absolute; right: 20px;"></i>
+                <i id="iphone-lightbulb-button" class="fas hoverable-icon-lockscreen bg-dark fa-lightbulb shadow-sm" style="padding: 10px; width: 35px; border-radius: 20px; position: absolute; left: 20px;"></i>
+                <i id="iphone-camera-button" class="fas hoverable-icon-lockscreen bg-dark fa-cube shadow-sm" style="padding: 10px; width: 35px; border-radius: 20px; position: absolute; right: 20px;"></i>
             </div>
 
             {% if now|is_night %}
@@ -181,6 +181,55 @@
             elem.removeClass("bg-gradient-siri-" + currentGradient);
             currentGradient = (currentGradient + 1) % numOfGradients;
             elem.addClass("bg-gradient-siri-" + currentGradient);
+        });
+
+        var enable3D = false;
+        var clientSupports3D = 'DeviceMotionEvent' in window;
+        var startX = 1337;
+        var startY = 1337;
+
+        var translatable = $(".translatable");
+
+        function onDeviceMotion (event) {
+            var x = event.beta;
+            var y = event.gamma;
+
+            if (startX === 1337 && startY === 1337) {
+                startX = x;
+                startY = y;
+            }
+
+            x = (x - startX) / 11;
+            y = (y - startY) / 11;
+
+            var transform =  x + "px, " + y + "px"
+
+            translatable.css("transform", "translate(" + transform + ")");
+            translatable.css("transform", "-webkit-translate(" + transform + ")");
+        }
+        $("#iphone-camera-button").click(function() {
+            if (clientSupports3D !== true) {
+                alert("Your device does not support DeviceMotionEvent. Please try this on a mobile device with motion enabled. DeviceMotionEvent might be deprecated in the future.")
+            } else {
+                if (enable3D === false) {
+                    startX = 1337;
+                    startY = 1337;
+                    window.addEventListener('deviceorientation', onDeviceMotion, false);
+                    $(this).removeClass("bg-dark");
+                    $(this).addClass("bg-light");
+                    $(this).removeClass("text-light");
+                    $(this).addClass("text-dark");
+                } else {
+                    window.removeEventListener('deviceorientation', onDeviceMotion, false);
+                    $(this).addClass("bg-dark");
+                    $(this).removeClass("bg-light");
+                    $(this).addClass("text-light");
+                    $(this).removeClass("text-dark");
+                    translatable.css("transform", "translate(0, 0)");
+                    translatable.css("transform", "-webkit-translate(0, 0)");
+                }
+                enable3D = !enable3D;
+            }
         });
 
         $(".scroll-to-messages").click(function() {
@@ -409,39 +458,5 @@
 
         window.addEventListener("scroll", layout);
         window.addEventListener("resize", layout);
-
-
-        // var startX = 1337;
-        // var startY = 1337;
-        //
-        // if ('DeviceMotionEvent' in window) {
-        //     var elem = $("#siri-app-wrapper");
-        //     var maxX = elem.innerWidth();
-        //     var maxY = elem.innerHeight();
-        //
-        //     var translatable = $(".translatable");
-        //
-        //     var onDeviceMotion = function (event) {
-        //         var x = event.beta;
-        //         var y = event.gamma;
-        //
-        //         if (startX === 1337 && startY === 1337) {
-        //             startX = x;
-        //             startY = y;
-        //         }
-        //
-        //         x = (x - startX) / 5;
-        //         y = (y - startY) / 5;
-        //
-        //         var transform =  x + "px, " + y + "px"
-        //
-        //         console.log(transform);
-        //
-        //         translatable.css("transform", "translate(" + transform + ")");
-        //         translatable.css("transform", "-webkit-translate(" + transform + ")");
-        //     }
-        //
-        //     window.addEventListener('deviceorientation', onDeviceMotion, false);
-        // }
     });
 </script>

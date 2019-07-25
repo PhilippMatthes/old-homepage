@@ -76,10 +76,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0f2027', end
     transition: background-color 200ms ease;
 }
 
-.hoverable-icon-lockscreen:hover {
-    background-color: rgba(0, 0, 0, 0.5) !important;
-}
-
 .iphone-face-id-flash {
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#e00479+0,8f0222+44,000000+100 */
     background: #e00479; /* Old browsers */
