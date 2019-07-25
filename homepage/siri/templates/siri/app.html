@@ -411,37 +411,37 @@
         window.addEventListener("resize", layout);
 
 
-        var startX = 1337;
-        var startY = 1337;
-
-        if ('DeviceMotionEvent' in window) {
-            var elem = $("#siri-app-wrapper");
-            var maxX = elem.innerWidth();
-            var maxY = elem.innerHeight();
-
-            var translatable = $(".translatable");
-
-            var onDeviceMotion = function (event) {
-                var x = event.beta;
-                var y = event.gamma;
-
-                if (startX === 1337 && startY === 1337) {
-                    startX = x;
-                    startY = y;
-                }
-
-                x = (x - startX) / 5;
-                y = (y - startY) / 5;
-
-                var transform =  x + "px, " + y + "px"
-
-                console.log(transform);
-
-                translatable.css("transform", "translate(" + transform + ")");
-                translatable.css("transform", "-webkit-translate(" + transform + ")");
-            }
-
-            window.addEventListener('deviceorientation', onDeviceMotion, false);
-        }
+        // var startX = 1337;
+        // var startY = 1337;
+        //
+        // if ('DeviceMotionEvent' in window) {
+        //     var elem = $("#siri-app-wrapper");
+        //     var maxX = elem.innerWidth();
+        //     var maxY = elem.innerHeight();
+        //
+        //     var translatable = $(".translatable");
+        //
+        //     var onDeviceMotion = function (event) {
+        //         var x = event.beta;
+        //         var y = event.gamma;
+        //
+        //         if (startX === 1337 && startY === 1337) {
+        //             startX = x;
+        //             startY = y;
+        //         }
+        //
+        //         x = (x - startX) / 5;
+        //         y = (y - startY) / 5;
+        //
+        //         var transform =  x + "px, " + y + "px"
+        //
+        //         console.log(transform);
+        //
+        //         translatable.css("transform", "translate(" + transform + ")");
+        //         translatable.css("transform", "-webkit-translate(" + transform + ")");
+        //     }
+        //
+        //     window.addEventListener('deviceorientation', onDeviceMotion, false);
+        // }
     });
 </script>
