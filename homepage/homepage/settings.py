@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'services',
     'projects',
     'timeline',
-    'visualization',
+    'contact',
 ]
 
 MIDDLEWARE = [

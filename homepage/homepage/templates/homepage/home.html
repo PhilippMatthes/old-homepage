@@ -18,16 +18,30 @@
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               {% if services %}
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle " href="#" id="navbar-dropdown-services" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Services
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu" aria-labelledby="navbar-dropdown-services">
                     {% for service in services %}
                         <a class="dropdown-item" href="#service-{{service.id}}">{{service.title}}</a>
                     {% endfor %}
                 </div>
               </li>
               {% endif %}
+              {% if projects %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle " href="#" id="navbar-dropdown-projects" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Projects
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbar-dropdown-projects">
+                    {% for project in projects %}
+                        <a class="dropdown-item" href="#project-{{project.id}}">{{project.title}}</a>
+                    {% endfor %}
+                </div>
+              </li>
+              {% endif %}
+              <li class="nav-item"><a class="nav-link" href="#timeline">Timeline</a></li>
+              <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
             </ul>
             <div class="my-2 my-lg-0">
                 <a class="btn btn-outline-light rounded my-2 my-sm-0" href="tel:+49 176 42090978"><span class="fas fa-phone"></span> +49 176 42090978</a>
@@ -53,20 +67,7 @@
     {% include 'services/app.html' %}
     {% include 'projects/app.html' %}
     {% include 'timeline/app.html' %}
-
-    <footer class="p-4 {% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %}" style=" margin-top: 100px; width: 100%; z-index: 1337;">
-    <div class="container {% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center">
-        <h1 class="bg-gradient-target bg-clip-text {{ gradient.css_class }}"
-            style="font-size: 60px; font-weight: 700;">
-                Interested?
-            </h1>
-        <h3><a class="{% if now|is_night %}text-light{% else %}text-dark{% endif %}" href="tel:+49 176 42090978">+49 176 42090978</a></h3>
-        <h3><a class="{% if now|is_night %}text-light{% else %}text-dark{% endif %}" href="mailto:hello@philippmatth.es">hello@philippmatth.es</a></h3>
-        <h2 class="mt-5 bg-gradient-target bg-clip-text {{ gradient.css_class }}"
-            style="font-size: 20px; font-weight: 700;">Created with ❤️ by Philipp Matthes.</h2>
-        <p class="mt-2">Clara-Viebig-Straße 9, 01159 Dresden</p>
-    </div>
-    </footer>
+    {% include 'contact/app.html' %}
 
 {% endblock %}
 
@@ -85,6 +86,16 @@
             "{{ g.svg_gradient_id }}",
             {% endfor %}
         ];
+        var gradientStartColors = [
+            {% for g in gradients %}
+            "{{ g.color_start }}",
+            {% endfor %}
+        ];
+        var gradientEndColors = [
+            {% for g in gradients %}
+            "{{ g.color_end }}",
+            {% endfor %}
+        ];
         $(".bg-gradient-trigger").click(function() {
             var bgGradientTargets = $(".bg-gradient-target");
             bgGradientTargets.removeClass(gradientClasses[currentGradientIndex]);
@@ -94,8 +105,8 @@
             var svgStrokeTargets = $(".svg-stroke-target g");
             svgStrokeTargets.attr("stroke", "url(#" + svgGradientIds[currentGradientIndex] + ")");
 
-            var svgFillTargets = $(".svg-fill-target");
-            svgFillTargets.attr("fill", "url(#" + svgGradientIds[currentGradientIndex] + ")");
+            window.shaderMaterial.uniforms.colorStart.value = new THREE.Color(gradientStartColors[currentGradientIndex]);
+            window.shaderMaterial.uniforms.colorEnd.value = new THREE.Color(gradientEndColors[currentGradientIndex]);
         });
     });
 </script>

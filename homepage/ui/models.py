@@ -10,6 +10,14 @@ class Gradient(models.Model):
         return str(self.color_steps).split()
 
     @cached_property
+    def color_start(self):
+        return self.colors[0]
+
+    @cached_property
+    def color_end(self):
+        return self.colors[-1]
+
+    @cached_property
     def gradient_string(self):
         num_colors = len(self.colors)
         return ", ".join(

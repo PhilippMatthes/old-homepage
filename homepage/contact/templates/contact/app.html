@@ -1,14 +1,21 @@
-<div id="visualization-demo" style="height: 600px; width: 100%; margin-bottom: 500px">
-    <div style="font-family: Roboto; font-weight: 300;" class="text-center">
-        <h1 class="mb-5" style="font-weight: 600;"><i>TIME TO CREATE<br> SOMETHING AWESOME.</i></h1>
-        <p>This page is currently under development.</p>
-        <p>Feel free to contact me. Thank you!</p>
-        <p>&copy; Philipp Matthes {% now "Y" %}.</p>
-        <p>Clara-Viebig-Straße 9</p>
-        <p>01159 Dresden</p>
-        <p>+49 176 42090978</p>
+{% load is_night %}
+
+<footer id="contact" class="p-4 {% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %}" style=" margin-top: 100px; width: 100%; z-index: 1337;">
+    <div id="visualization-demo" style="height: 400px; width: 100%; margin-bottom: 500px">
+        <div class="container {% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center">
+            <h1 class="bg-gradient-target bg-clip-text {{ gradient.css_class }}"
+                style="font-size: 60px; font-weight: 700;">
+                    Interested?
+                </h1>
+            <h3><a class="{% if now|is_night %}text-light{% else %}text-dark{% endif %}" href="tel:+49 176 42090978">+49 176 42090978</a></h3>
+            <h3><a class="{% if now|is_night %}text-light{% else %}text-dark{% endif %}" href="mailto:hello@philippmatth.es">hello@philippmatth.es</a></h3>
+            <h2 class="mt-5 bg-gradient-target bg-clip-text {{ gradient.css_class }}"
+                style="font-size: 20px; font-weight: 700;">Created with ❤️ by Philipp Matthes.</h2>
+            <p class="mt-2">Clara-Viebig-Straße 9, 01159 Dresden</p>
+        </div>
     </div>
-</div>
+
+</footer>
 
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
@@ -115,11 +122,8 @@
                 varying vec3 vPosition;
                 uniform float thickness;
 
-                uniform vec3 color1;
-                uniform vec3 color2;
-                uniform vec3 color3;
-                uniform vec3 color4;
-                uniform vec3 color5;
+                uniform vec3 colorStart;
+                uniform vec3 colorEnd;
 
                 float edgeFactor(vec2 p){
                     vec2 grid = abs(fract(p - 0.5) - 0.5) / fwidth(p) / thickness;
@@ -129,17 +133,7 @@
                 void main() {
                     vec3 color = vec3(0.0);
                     float gradient = vPosition.z;
-                    if (gradient < 0.2) {
-                        color = mix(color1, color2, gradient);
-                    } else if (gradient < 0.4) {
-                        color = mix(color2, color3, gradient);
-                    } else if (gradient < 0.6) {
-                        color = mix(color3, color4, gradient);
-                    } else if (gradient < 0.8) {
-                        color = mix(color4, color5, gradient);
-                    } else {
-                        color = color5;
-                    }
+                    color = mix(colorStart, colorEnd, gradient);
 
                     float a = edgeFactor(vUv);
 
@@ -147,23 +141,20 @@
                 }
             `;
 
-            var material = new THREE.ShaderMaterial({
+            window.shaderMaterial = new THREE.ShaderMaterial({
                 uniforms: {
                     thickness: {
                         value: 1.5
                     },
-                    color1: {type: 'vec3', value: new THREE.Color("#4b7bec")},
-                    color2: {type: 'vec3', value: new THREE.Color("#45aaf2")},
-                    color3: {type: 'vec3', value: new THREE.Color("#2bcbba")},
-                    color4: {type: 'vec3', value: new THREE.Color("#26de81")},
-                    color5: {type: 'vec3', value: new THREE.Color("#20bf6b")},
+                    colorStart: {type: 'vec3', value: new THREE.Color("{{ gradient.color_start }}")},
+                    colorEnd: {type: 'vec3', value: new THREE.Color("{{ gradient.color_end }}")},
                 },
                 vertexShader,
                 fragmentShader
             });
 
             var templateGeometry = new THREE.BoxBufferGeometry(0.3, 0.3, 1.0);
-            var templateMesh = new THREE.Mesh(templateGeometry, material);
+            var templateMesh = new THREE.Mesh(templateGeometry, window.shaderMaterial);
             var meshPositions = [];
 
             var iMax = 4;

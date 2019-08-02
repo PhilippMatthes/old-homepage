@@ -10,16 +10,14 @@
             <p class="{% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center mt-3">
                 Here is a selection of commercial projects that I realized together with my clients.
             </p>
-    <div class="card-deck text-center" style="margin-top: 100px;">
+    <div class="card-columns text-center" style="margin-top: 100px;">
     {% for project in projects %}
-        <div id="service-{{service.id}}" class="card rounded {% if now|is_night %}bg-dark border-light text-white{% else %}bg-light text-dark border-light{% endif %} mb-5 shadow-lg"
-             style="position: relative; min-width: 400px; margin-left: 30px; ">
+        <div id="project-{{project.id}}" class="card rounded {% if now|is_night %}bg-dark border-light text-white{% else %}bg-white text-dark border-light{% endif %} shadow-sm"
+             style="position: relative;">
             <div class="card-body text-left">
+                <h4 class="font-weight-light m-0"><span class="{{ service.icon_css }}"></span> {{ project.title }}</h4>
                 <img class="mt-5" src="{{ project.thumbnail.url }}" style="width: 100%;">
                 <p class="mt-2">{{ project.description }}</p>
-            </div>
-            <div style="position: absolute; top: -30px; left: -30px;" class="card {% if now|is_night %}bg-dark border-light text-white{% else %}bg-light text-dark border-light{% endif %} rounded shadow-sm p-3">
-                <h4 class="font-weight-light m-0"><span class="{{ service.icon_css }}"></span> {{ project.title }}</h4>
             </div>
         </div>
     {% endfor %}
