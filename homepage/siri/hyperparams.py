@@ -1,4 +1,7 @@
 import os
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 # -*- coding: utf-8 -*-
 #/usr/bin/python2
 '''
@@ -42,7 +45,9 @@ class Hyperparams:
 
     # training scheme
     lr = 0.001 # Initial learning rate.
-    logdir = "siri/logdir/LJ01"
+    logdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "logdir") + "/LJ01"    
+    print("Using logdir: ", logdir)
+#logdir = "~/homepage/homepage/siri/logdir/LJ01"
     sampledir = 'samples'
     B = 32 # batch size
     num_iterations = 2000000

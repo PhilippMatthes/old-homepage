@@ -11,6 +11,9 @@ import os
 
 from siri.hyperparams import Hyperparams as hp
 import numpy as np
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
+
 import tensorflow as tf
 from siri.train import Graph
 from siri.utils import *

@@ -7,8 +7,8 @@ register = template.Library()
 @register.filter
 def is_night(now):
     now = timezone.now().time()
-    begin_time = time(19,00)
-    end_time = time(10,00)
+    begin_time = time(22,00)
+    end_time = time(6,00)
     if begin_time < end_time:
         return now >= begin_time and now <= end_time
     else:

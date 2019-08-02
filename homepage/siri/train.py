@@ -13,6 +13,9 @@ from siri.data_load import get_batch, load_vocab
 from siri.hyperparams import Hyperparams as hp
 from siri.modules import *
 from siri.networks import TextEnc, AudioEnc, AudioDec, Attention, SSRN
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
+
 import tensorflow as tf
 from siri.utils import *
 import sys
