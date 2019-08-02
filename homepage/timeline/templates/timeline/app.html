@@ -14,8 +14,16 @@
 		<ul class="timeline">
 			{% for milestone in milestones %}
 			<li>
-				<p class="float-right text-white">{{ milestone.date|date:"M Y" }}</p>
-				<p class="text-white">{{ milestone.title }}</p>
+				{% spaceless %}
+				<h4 class="float-right text-white">
+					{% if milestone.end_date %}
+					{{ milestone.start_date|date:"M Y" }} - {{ milestone.end_date|date:"M Y" }}
+					{% else %}
+					{{ milestone.start_date|date:"M Y" }} - Today
+					{% endif %}
+				</h4>
+				{% endspaceless %}
+				<h4 class="text-white">{{ milestone.title }}</h4>
 				<p class="text-white">{{ milestone.description }}</p>
 			</li>
 			{% endfor %}
