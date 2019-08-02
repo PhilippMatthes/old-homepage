@@ -36,6 +36,7 @@
         </div>
     </nav>
 
+    {% if now|is_night %}
     <div class="container" style="position: sticky; top: 64px; z-index: 1337;">
         <div class="alert alert-darker rounded alert-dismissible fade show mt-2 shadow" role="alert">
 
@@ -45,6 +46,7 @@
             </button>
         </div>
     </div>
+    {% endif %}
 
 
     {% include 'header/app.html' %}
