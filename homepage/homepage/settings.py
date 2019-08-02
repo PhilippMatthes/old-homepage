@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'siri',
     'header',
     'services',
+    'projects',
+    'timeline',
     'visualization',
 ]
 

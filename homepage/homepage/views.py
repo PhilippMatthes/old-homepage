@@ -1,20 +1,23 @@
 from django.shortcuts import render
 import random
 
+from projects.models import Project
 from services.models import Service
 from siri.models import Forecast
+from timeline.models import Milestone
 
 from ui.models import Gradient
 
 
 def home(request):
-    forecast = Forecast.objects.last()
     gradients = list(Gradient.objects.all())
     random.shuffle(gradients)
     gradient = gradients[0]
     return render(request, "homepage/home.html", {
-        "forecast": forecast,
+        "forecast": Forecast.objects.last(),
         "gradient": gradient,
         "gradients": gradients,
-        "services": Service.objects.all()
+        "services": Service.objects.all(),
+        "projects": Project.objects.all(),
+        "milestones": Milestone.objects.all(),
     })

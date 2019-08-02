@@ -36,16 +36,33 @@
         </div>
     </nav>
 
+    <div class="container" style="position: sticky; top: 64px; z-index: 1337;">
+        <div class="alert alert-darker rounded alert-dismissible fade show mt-2 shadow" role="alert">
+
+            Hi! To protect your eyes, the website is displayed in a <strong>dark version</strong> until 6:00 am.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+
     {% include 'header/app.html' %}
     {% include 'services/app.html' %}
+    {% include 'projects/app.html' %}
+    {% include 'timeline/app.html' %}
 
-    <footer class="p-4 {% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %}" style="width: 100%; z-index: 1337;">
+    <footer class="p-4 {% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %}" style=" margin-top: 100px; width: 100%; z-index: 1337;">
     <div class="container {% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center">
+        <h1 class="bg-gradient-target bg-clip-text {{ gradient.css_class }}"
+            style="font-size: 60px; font-weight: 700;">
+                Interested?
+            </h1>
+        <h3><a class="{% if now|is_night %}text-light{% else %}text-dark{% endif %}" href="tel:+49 176 42090978">+49 176 42090978</a></h3>
+        <h3><a class="{% if now|is_night %}text-light{% else %}text-dark{% endif %}" href="mailto:hello@philippmatth.es">hello@philippmatth.es</a></h3>
         <h2 class="mt-5 bg-gradient-target bg-clip-text {{ gradient.css_class }}"
             style="font-size: 20px; font-weight: 700;">Created with ❤️ by Philipp Matthes.</h2>
-        <p class="mt-5">Clara-Viebig-Straße 9, 01159 Dresden</p>
-        <a href="tel:+49 176 42090978">+49 176 42090978</a>
-        <a class="bg-light rounded p-1 text-dark" href="mailto:hello@philippmatth.es">hello@philippmatth.es</a>
+        <p class="mt-2">Clara-Viebig-Straße 9, 01159 Dresden</p>
     </div>
     </footer>
 
@@ -74,6 +91,9 @@
 
             var svgStrokeTargets = $(".svg-stroke-target g");
             svgStrokeTargets.attr("stroke", "url(#" + svgGradientIds[currentGradientIndex] + ")");
+
+            var svgFillTargets = $(".svg-fill-target");
+            svgFillTargets.attr("fill", "url(#" + svgGradientIds[currentGradientIndex] + ")");
         });
     });
 </script>

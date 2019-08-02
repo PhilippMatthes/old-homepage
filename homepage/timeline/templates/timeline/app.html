@@ -1,0 +1,31 @@
+{% load staticfiles %}
+{% load is_night %}
+
+<div style="width: 100%; position: relative" class="animate-background-transition bg-gradient-target {{ gradient.css_class }} pt-5 pb-5">
+	<svg style="position: absolute; top: 0; width: 100%;" class="svg-fill-target" fill="{% if now|is_night %}#1e272e{% else %}#f8f9fa{% endif %}" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 100" preserveAspectRatio="none">
+        <path d="M 0 0 L 0 50 Q 200 0 400 0 Q 600 0 800 50 L 800 0 L 0 0 Z"></path>
+    </svg>
+
+    <div class="container pt-5 pb-5">
+		<h1 class="text-white text-center"
+			style="font-size: 60px; font-weight: 700;">
+			Timeline
+		</h1>
+		<ul class="timeline">
+			{% for milestone in milestones %}
+			<li>
+				<p class="float-right text-white">{{ milestone.date|date:"M Y" }}</p>
+				<p class="text-white">{{ milestone.title }}</p>
+				<p class="text-white">{{ milestone.description }}</p>
+			</li>
+			{% endfor %}
+		</ul>
+    </div>
+
+	<svg style="position: absolute; bottom: 0; width: 100%;" class="svg-fill-target" fill="{% if now|is_night %}#1e272e{% else %}#f8f9fa{% endif %}" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 50" preserveAspectRatio="none">
+        <path d="M 0 0 L 0 0 Q 200 50 400 50 Q 600 50 800 0 L 800 50 L 0 50 Z"></path>
+    </svg>
+</div>
+
+
+
