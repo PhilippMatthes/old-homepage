@@ -85,7 +85,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0f2027', end
 }
 
 .bg-clip-text {
-    background-attachment: fixed !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
 }

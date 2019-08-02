@@ -13,7 +13,7 @@
 		</h1>
 		<ul class="timeline">
 			{% for milestone in milestones %}
-			<li>
+			<li id="milestone-{{milestone.id}}">
 				<h4 class="text-white">{{ milestone.title }}</h4>
 				<p class="text-white">{{ milestone.description }}</p>
 				{% spaceless %}

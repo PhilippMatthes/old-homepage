@@ -40,7 +40,18 @@
                 </div>
               </li>
               {% endif %}
-              <li class="nav-item"><a class="nav-link" href="#timeline">Timeline</a></li>
+              {% if milestones %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle " href="#" id="navbar-dropdown-timeline" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Timeline
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbar-dropdown-timeline">
+                    {% for milestone in milestones %}
+                        <a class="dropdown-item" href="#milestone-{{milestone.id}}">{{milestone.title}}</a>
+                    {% endfor %}
+                </div>
+              </li>
+              {% endif %}
               <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
             </ul>
             <div class="my-2 my-lg-0">
