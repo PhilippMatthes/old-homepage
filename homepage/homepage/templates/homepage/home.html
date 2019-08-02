@@ -1,9 +1,81 @@
 {% extends 'homepage/base.html' %}
 
 {% load staticfiles %}
+{% load is_night %}
 
 {% block body %}
 
     {% include 'siri/app.html' %}
+
+    <nav class="navbar navbar-expand-lg navbar-dark shadow animate-background-transition bg-gradient-target {{ gradient.css_class }}" style="position: sticky; top: 0; z-index: 1337">
+        <div class="container">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggler" aria-controls="navbar-toggler" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon text-white"></span>
+          </button>
+          <a class="navbar-brand" style="font-weight: 700;" href="#">PHILIPPMATTH.ES</a>
+
+          <div class="collapse navbar-collapse" id="navbar-toggler">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              {% if services %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Services
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for service in services %}
+                        <a class="dropdown-item" href="#service-{{service.id}}">{{service.title}}</a>
+                    {% endfor %}
+                </div>
+              </li>
+              {% endif %}
+            </ul>
+            <div class="my-2 my-lg-0">
+                <a class="btn btn-outline-light rounded my-2 my-sm-0" href="tel:+49 176 42090978"><span class="fas fa-phone"></span> +49 176 42090978</a>
+            </div>
+          </div>
+        </div>
+    </nav>
+
+    {% include 'header/app.html' %}
+    {% include 'services/app.html' %}
+
+    <footer class="p-4 {% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %}" style="width: 100%; z-index: 1337;">
+    <div class="container {% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center">
+        <h2 class="mt-5 bg-gradient-target bg-clip-text {{ gradient.css_class }}"
+            style="font-size: 20px; font-weight: 700;">Created with ❤️ by Philipp Matthes.</h2>
+        <p class="mt-5">Clara-Viebig-Straße 9, 01159 Dresden</p>
+        <a href="tel:+49 176 42090978">+49 176 42090978</a>
+        <a class="bg-light rounded p-1 text-dark" href="mailto:hello@philippmatth.es">hello@philippmatth.es</a>
+    </div>
+    </footer>
+
+{% endblock %}
+
+{% block extrabody %}
+
+<script>
+    $(document).ready(function() {
+        var currentGradientIndex = 0;
+        var gradientClasses = [
+            {% for g in gradients %}
+            "{{ g.css_class }}",
+            {% endfor %}
+        ];
+        var svgGradientIds = [
+            {% for g in gradients%}
+            "{{ g.svg_gradient_id }}",
+            {% endfor %}
+        ];
+        $(".bg-gradient-trigger").click(function() {
+            var bgGradientTargets = $(".bg-gradient-target");
+            bgGradientTargets.removeClass(gradientClasses[currentGradientIndex]);
+            currentGradientIndex = (currentGradientIndex + 1) % gradientClasses.length;
+            bgGradientTargets.addClass(gradientClasses[currentGradientIndex]);
+
+            var svgStrokeTargets = $(".svg-stroke-target g");
+            svgStrokeTargets.attr("stroke", "url(#" + svgGradientIds[currentGradientIndex] + ")");
+        });
+    });
+</script>
 
 {% endblock %}
