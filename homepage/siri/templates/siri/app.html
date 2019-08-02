@@ -1,89 +1,93 @@
 {% load staticfiles %}
 {% load is_night %}
 
-<div id="siri-app-wrapper" class="animate-background-transition bg-gradient-siri-{{ gradient }}" style="height: 5000px; position: relative;">
+<div id="siri-app-wrapper" class="animate-background-transition bg-gradient-target {{ gradient.css_class }}" style="height: 5000px; position: relative;">
 
     <div id="siri-app-sticky-wrapper" class="text-center text-white simulate-sticky-top" style="height: 700px;">
 
-        <div class="iphone-lockscreen" id="scroll-down-to-unlock" style="padding-top: 90px; font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 10px;">
-            <i class="fas fa-lock"></i> scroll down to unlock
-        </div>
-        <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 60px">{% now "G:i" %}</div>
-        <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px">{% now "jS \o\f F Y" %}</div>
-        <div class="iphone-lockscreen" style="width: 270px; border-radius: 10px; position: absolute; bottom: 100px; left: 50%; transform: translate(-50%, 0); background-color: rgba(0, 0, 0, 0.8);">
-            <i id="iphone-lightbulb-button" class="fas hoverable-icon-lockscreen fa-lightbulb shadow-sm" style="background: rgba(0, 0, 0, 0.3); padding: 10px; width: 35px; border-radius: 20px; position: absolute; left: 20px;"></i>
-            <i id="iphone-camera-button" class="fas hoverable-icon-lockscreen fa-camera shadow-sm" style="background: rgba(0, 0, 0, 0.3); padding: 10px; width: 35px; border-radius: 20px; position: absolute; right: 20px;"></i>
-        </div>
+        <div class="translatable" style="height: 700px">
 
-        {% if now|is_night %}
-        <div id="iphone-do-not-disturb" class="iphone-lockscreen text-left shadow" style="width: 270px; border-radius: 10px; position: absolute; top: 250px; left: 50%; transform: translate(-50%, 0); background-color: rgba(0, 0, 0, 0.8);">
-            <div class="pl-2 pt-2 pr-2" style="color: #AAA; font-size: 10px; margin-right: 2rem;">DO NOT DISTURB DURING BEDTIME</div>
-            <i class="fas fa-moon" style="position: absolute; right: 1rem; top: 25px;"></i>
-            <div class="pl-2 pt-1 pr-2 pb-2" style="color: #DDD; font-size: 10px; margin-right: 2rem;">Calls will be silenced and notifications will appear in Notification Center.</div>
-        </div>
-        {% endif %}
+            <div class="iphone-lockscreen" id="scroll-down-to-unlock" style="padding-top: 90px; font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 10px;">
+                <i class="fas fa-lock"></i> scroll down to unlock
+            </div>
+            <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 60px">{% now "G:i" %}</div>
+            <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px">{% now "jS \o\f F Y" %}</div>
+            <div class="iphone-lockscreen" style="width: 270px; border-radius: 10px; position: absolute; bottom: 100px; left: 50%; transform: translate(-50%, 0); background-color: rgba(0, 0, 0, 0.8);">
+                <i id="iphone-lightbulb-button" class="fas hoverable-icon-lockscreen bg-dark-custom fa-lightbulb bg-gradient-trigger shadow-sm" style="padding: 10px; width: 35px; border-radius: 20px; position: absolute; left: 20px;"></i>
+                <i id="iphone-camera-button" class="fas hoverable-icon-lockscreen bg-dark-custom fa-cube shadow-sm" style="padding: 10px; width: 35px; border-radius: 20px; position: absolute; right: 20px;"></i>
+            </div>
 
-        <div id="iphone-message" class="iphone-lockscreen scroll-to-messages text-left text-dark shadow" style="width: 270px; border-radius: 10px; position: absolute;{% if now|is_night %}top: 320px;{% else %}top: 250px;{% endif %} left: 50%; transform: translate(-50%, 0); background-color: rgba(255, 255, 255, 0.8);">
-            <div class="pl-2 pt-2 pr-2" style="font-size: 10px; margin-right: 2rem;">CHAT APP</div>
-            <i class="fas fa-comments" style="position: absolute; right: 1rem; top: 35px;"></i>
-            <div class="pl-2 pt-1 pr-2" style="font-size: 10px; margin-right: 2rem;"><strong>Philipp Matthes</strong></div>
-            <div class="pl-2 pr-2 pb-2" style="font-size: 10px; margin-right: 2rem;">Hey, how is it going? My name is Philipp. Let me tell you something about myself. ✌</div>
-        </div>
+            {% if now|is_night %}
+            <div id="iphone-do-not-disturb" class="iphone-lockscreen text-left shadow" style="width: 270px; border-radius: 10px; position: absolute; top: 250px; left: 50%; transform: translate(-50%, 0); background-color: rgba(0, 0, 0, 0.8);">
+                <div class="pl-2 pt-2 pr-2" style="color: #AAA; font-size: 10px; margin-right: 2rem;">DO NOT DISTURB DURING BEDTIME</div>
+                <i class="fas fa-moon" style="position: absolute; right: 1rem; top: 25px;"></i>
+                <div class="pl-2 pt-1 pr-2 pb-2" style="color: #DDD; font-size: 10px; margin-right: 2rem;">Calls will be silenced and notifications will appear in Notification Center.</div>
+            </div>
+            {% endif %}
 
-        <div class="iphone-lockscreen siri-button text-left shadow text-dark" style="width: 270px; border-radius: 10px; position: absolute; bottom: 130px; left: 50%; transform: translate(-50%, 0); background-color: rgba(255, 255, 255, 0.8);">
-            <div class="pl-2 pt-2 pr-2" style="font-size: 10px; margin-right: 2rem;">UPDATES HAVE BEEN INSTALLED</div>
-            <i class="fas fa-cogs" style="position: absolute; right: 1rem; top: 25px;"></i>
-            <div class="pl-2 pt-1 pr-2 pb-2" style="font-size: 10px; margin-right: 2rem;">We added a new Siri voice. Click this notification to test it.</div>
-        </div>
+            <div id="iphone-message" class="iphone-lockscreen scroll-to-messages text-left text-dark shadow" style="width: 270px; border-radius: 10px; position: absolute;{% if now|is_night %}top: 320px;{% else %}top: 250px;{% endif %} left: 50%; transform: translate(-50%, 0); background-color: rgba(255, 255, 255, 0.8);">
+                <div class="pl-2 pt-2 pr-2" style="font-size: 10px; margin-right: 2rem;">CHAT APP</div>
+                <i class="fas fa-comments" style="position: absolute; right: 1rem; top: 35px;"></i>
+                <div class="pl-2 pt-1 pr-2" style="font-size: 10px; margin-right: 2rem;"><strong>Philipp Matthes</strong></div>
+                <div class="pl-2 pr-2 pb-2" style="font-size: 10px; margin-right: 2rem;">Hey, how is it going? My name is Philipp. Let me tell you something about myself. ✌</div>
+            </div>
 
-        <div class="iphone-lockscreen" id="unlock-bar" style="height: 5px; width: 130px; border-radius: 5px; background-color: white; position: absolute; bottom: 35px; left: 50%; transform: translate(-50%, 0);"></div>
+            <div class="iphone-lockscreen siri-button text-left shadow text-dark" style="width: 270px; border-radius: 10px; position: absolute; bottom: 130px; left: 50%; transform: translate(-50%, 0); background-color: rgba(255, 255, 255, 0.8);">
+                <div class="pl-2 pt-2 pr-2" style="font-size: 10px; margin-right: 2rem;">UPDATES HAVE BEEN INSTALLED</div>
+                <i class="fas fa-cogs" style="position: absolute; right: 1rem; top: 25px;"></i>
+                <div class="pl-2 pt-1 pr-2 pb-2" style="font-size: 10px; margin-right: 2rem;">We added a new Siri voice. Click this notification to test it.</div>
+            </div>
 
-        <div class="iphone-app" style="height: 80px; width: 270px; position: absolute; background: rgba(0, 0, 0, 0.5); left: 50%; bottom: 38px; border-radius: 20px; transform: translate(-50%, 0); opacity: 0.0;"></div>
+            <div class="iphone-lockscreen" id="unlock-bar" style="height: 5px; width: 130px; border-radius: 5px; background-color: white; position: absolute; bottom: 35px; left: 50%; transform: translate(-50%, 0);"></div>
 
-        <div class="iphone-app row ml-0 mr-0" style="position: absolute; left: 50%; bottom: 53px; width: 270px; transform: translate(-50%, 0); opacity: 0.0;">
-            <div class="col pl-0 pr-0">
-                <a href="https://apps.apple.com/de/app/no2/id1301654346" target="_blank"><img src="{% static 'img/app1.jpg' %}" class="app-icon"></a>
-            </div>
-            <div class="col pl-0 pr-0">
-                <a href="https://apps.apple.com/de/app/sanduhr/id1298773811" target="_blank"><img src="{% static 'img/app2.jpg' %}" class="app-icon"></a>
-            </div>
-            <div class="col pl-0 pr-0">
-                <a href="https://apps.apple.com/de/app/benno-netzwerk/id1443769539" target="_blank"><img src="{% static 'img/app3.jpg' %}" class="app-icon"></a>
-            </div>
-            <div class="col pl-0 pr-0">
-                <a href="https://apps.apple.com/de/app/manni/id1347527695" target="_blank"><img src="{% static 'img/app4.jpg' %}" class="app-icon"></a>
-            </div>
-        </div>
+            <div class="iphone-app" style="height: 80px; width: 270px; position: absolute; background: rgba(0, 0, 0, 0.5); left: 50%; bottom: 38px; border-radius: 20px; transform: translate(-50%, 0); opacity: 0.0;"></div>
 
-        <div class="iphone-app row ml-0 mr-0" style="position: absolute; left: 50%; top: 100px; width: 270px; transform: translate(-50%, 0); opacity: 0.0;">
-            <div class="col pl-0 pr-0">
-                <a class="iphone-app" href="https://apps.apple.com/de/app/lautst%C3%A4rke/id1296210225" target="_blank"><img src="{% static 'img/app5.jpg' %}" class="app-icon"></a>
-                <div style="font-size: 10px; margin-top: 1px;">Loudness</div>
+            <div class="iphone-app row ml-0 mr-0" style="position: absolute; left: 50%; bottom: 53px; width: 270px; transform: translate(-50%, 0); opacity: 0.0;">
+                <div class="col pl-0 pr-0">
+                    <a href="https://apps.apple.com/de/app/no2/id1301654346" target="_blank"><img src="{% static 'img/app1.jpg' %}" class="app-icon"></a>
+                </div>
+                <div class="col pl-0 pr-0">
+                    <a href="https://apps.apple.com/de/app/sanduhr/id1298773811" target="_blank"><img src="{% static 'img/app2.jpg' %}" class="app-icon"></a>
+                </div>
+                <div class="col pl-0 pr-0">
+                    <a href="https://apps.apple.com/de/app/benno-netzwerk/id1443769539" target="_blank"><img src="{% static 'img/app3.jpg' %}" class="app-icon"></a>
+                </div>
+                <div class="col pl-0 pr-0">
+                    <a href="https://apps.apple.com/de/app/manni/id1347527695" target="_blank"><img src="{% static 'img/app4.jpg' %}" class="app-icon"></a>
+                </div>
             </div>
-            <div class="col pl-0 pr-0">
-                <a class="iphone-app" href="https://apps.apple.com/de/app/pacebox/id1291956466" target="_blank"><img src="{% static 'img/app6.jpg' %}" class="app-icon"></a>
-                <div style="font-size: 10px; margin-top: 1px;">Pacebox</div>
+
+            <div class="iphone-app row ml-0 mr-0" style="position: absolute; left: 50%; top: 100px; width: 270px; transform: translate(-50%, 0); opacity: 0.0;">
+                <div class="col pl-0 pr-0">
+                    <a class="iphone-app" href="https://apps.apple.com/de/app/lautst%C3%A4rke/id1296210225" target="_blank"><img src="{% static 'img/app5.jpg' %}" class="app-icon"></a>
+                    <div style="font-size: 10px; margin-top: 1px;">Loudness</div>
+                </div>
+                <div class="col pl-0 pr-0">
+                    <a class="iphone-app" href="https://apps.apple.com/de/app/pacebox/id1291956466" target="_blank"><img src="{% static 'img/app6.jpg' %}" class="app-icon"></a>
+                    <div style="font-size: 10px; margin-top: 1px;">Pacebox</div>
+                </div>
+                <div class="col pl-0 pr-0">
+                    <a class="siri-button">
+                        <img src="{% static 'img/siri.jpg' %}" class="app-icon">
+                    </a>
+                    <div style="font-size: 10px; margin-top: 1px;">"Siri"</div>
+                </div>
+                <div class="col pl-0 pr-0">
+                    <div class="bg-danger" style="width: 20px; height: 20px; position: absolute; right: 1px; top: -6px; border-radius: 10px; font-size: 12px; padding-top: 2px;">1</div>
+                    <a class="scroll-to-messages"><img src="{% static 'img/message.jpg' %}" class="app-icon"></a>
+                    <div style="font-size: 10px; margin-top: 1px;">Messages</div>
+                </div>
             </div>
-            <div class="col pl-0 pr-0">
-                <a class="siri-button">
-                    <img src="{% static 'img/siri.jpg' %}" class="app-icon">
-                </a>
-                <div style="font-size: 10px; margin-top: 1px;">"Siri"</div>
-            </div>
-            <div class="col pl-0 pr-0">
-                <div class="bg-danger" style="width: 20px; height: 20px; position: absolute; right: 1px; top: -6px; border-radius: 10px; font-size: 12px; padding-top: 2px;">1</div>
-                <a class="scroll-to-messages"><img src="{% static 'img/message.jpg' %}" class="app-icon"></a>
-                <div style="font-size: 10px; margin-top: 1px;">Messages</div>
-            </div>
+
         </div>
 
         <div id="iphone-chat-background" class="text-left" style="line-height: 120%; z-index: 1; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0) scale(0); {% if now|is_night %}background-color: #111;{% else %} background-color: #fff;{% endif %}">
             <img src="{% static 'img/profile.jpeg' %}" style="width: 30px; height: 30px; border-radius: 15px; position: absolute; left: 13px; top: 47px;">
             <div class="bg-dark mt-5 ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">Hey, how is it going? My name is Philipp. Let me tell you something about myself. ✌</div>
-            <div id="message-1" class="bg-dark ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I study Computer Science at TU Dresden (on Diploma, currently in the 7th semester).</div>
-            <div id="message-2" class="bg-dark ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I work at TU Dresden as a developer and tutor since April 2018. Additionally, I am self-employed as a software developer and designer.</div>
-            <div id="message-3" class="bg-dark ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I like 🏸 badminton, 🏂 snowboarding, 🚴🏼‍ cycling and 🏋🏻‍ any other kind of sports.</div>
-            <div id="message-4" class="bg-dark ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">If you are interested in software development, design or teaching, feel free to contact me!</div>
+            <div id="message-1" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I study Computer Science at TU Dresden (on Diploma, currently in the 7th semester).</div>
+            <div id="message-2" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I work at TU Dresden as a developer and tutor since April 2018. Additionally, I am self-employed as a software developer and designer.</div>
+            <div id="message-3" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I like 🏸 badminton, 🏂 snowboarding, 🚴🏼‍ cycling and 🏋🏻‍ any other kind of sports.</div>
+            <div id="message-4" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">If you are interested in software development, design or teaching, feel free to contact me!</div>
         </div>
 
         <div id="iphone-siri-background" class="text-left iphone-siri-background" style="line-height: 120%; z-index: 5; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0) scale(0);">
@@ -127,8 +131,10 @@
             <div id="iphone-face-id-flash-3" class="iphone-face-id-flash" style="width: 10px; height: 10px; position: absolute; right: 80px; top: 51px; opacity: 0;"></div>
 
         </div>
+
         <img id="iphone" style="pointer-events:none; z-index: 10; position: absolute; top: 10px; left: 50%; height: 700px; transform: translate(-50%, 0)" src="{% static 'img/iphone.png' %}">
         <img id="iphone-shadow" style="pointer-events:none; position: absolute; bottom: -25px; left: 50%; transform: translate(-50%, 0); opacity: 0.5;" src="{% static 'img/iphone-shadow.png' %}">
+
     </div>
 
 </div>
@@ -168,13 +174,53 @@
             });
         });
 
-        var currentGradient = {{gradient}};
-        var numOfGradients = 4;
-        $("#iphone-lightbulb-button").click(function() {
-            var elem = $("#siri-app-wrapper");
-            elem.removeClass("bg-gradient-siri-" + currentGradient);
-            currentGradient = (currentGradient + 1) % numOfGradients;
-            elem.addClass("bg-gradient-siri-" + currentGradient);
+        var enable3D = false;
+        var clientSupports3D = 'DeviceMotionEvent' in window;
+        var startX = 1337;
+        var startY = 1337;
+
+        var translatable = $(".translatable");
+
+        function onDeviceMotion (event) {
+            var x = event.beta;
+            var y = event.gamma;
+
+            if (startX === 1337 && startY === 1337) {
+                startX = x;
+                startY = y;
+            }
+
+            x = (x - startX) / 11;
+            y = (y - startY) / 11;
+
+            var transform =  x + "px, " + y + "px"
+
+            translatable.css("transform", "translate(" + transform + ")");
+            translatable.css("transform", "-webkit-translate(" + transform + ")");
+        }
+        $("#iphone-camera-button").click(function() {
+            if (clientSupports3D !== true) {
+                alert("Your device does not support DeviceMotionEvent. Please try this on a mobile device with motion enabled. DeviceMotionEvent might be deprecated in the future.")
+            } else {
+                if (enable3D === false) {
+                    startX = 1337;
+                    startY = 1337;
+                    window.addEventListener('deviceorientation', onDeviceMotion, false);
+                    $(this).removeClass("bg-dark-custom");
+                    $(this).addClass("bg-light");
+                    $(this).removeClass("text-light");
+                    $(this).addClass("text-dark");
+                } else {
+                    window.removeEventListener('deviceorientation', onDeviceMotion, false);
+                    $(this).addClass("bg-dark-custom");
+                    $(this).removeClass("bg-light");
+                    $(this).addClass("text-light");
+                    $(this).removeClass("text-dark");
+                    translatable.css("transform", "translate(0, 0)");
+                    translatable.css("transform", "-webkit-translate(0, 0)");
+                }
+                enable3D = !enable3D;
+            }
         });
 
         $(".scroll-to-messages").click(function() {
@@ -368,7 +414,7 @@
             })
             .add({
                 duration: 200,
-            })
+            });
 
         function layout() {
             var element = $("#siri-app-wrapper");
