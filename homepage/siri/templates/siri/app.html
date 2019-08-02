@@ -1,7 +1,7 @@
 {% load staticfiles %}
 {% load is_night %}
 
-<div id="siri-app-wrapper" class="animate-background-transition bg-gradient-siri-{{ gradient }}" style="height: 5000px; position: relative;">
+<div id="siri-app-wrapper" class="animate-background-transition bg-gradient-target {{ gradient.css_class }}" style="height: 5000px; position: relative;">
 
     <div id="siri-app-sticky-wrapper" class="text-center text-white simulate-sticky-top" style="height: 700px;">
 
@@ -13,8 +13,8 @@
             <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 60px">{% now "G:i" %}</div>
             <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px">{% now "jS \o\f F Y" %}</div>
             <div class="iphone-lockscreen" style="width: 270px; border-radius: 10px; position: absolute; bottom: 100px; left: 50%; transform: translate(-50%, 0); background-color: rgba(0, 0, 0, 0.8);">
-                <i id="iphone-lightbulb-button" class="fas hoverable-icon-lockscreen bg-dark fa-lightbulb shadow-sm" style="padding: 10px; width: 35px; border-radius: 20px; position: absolute; left: 20px;"></i>
-                <i id="iphone-camera-button" class="fas hoverable-icon-lockscreen bg-dark fa-cube shadow-sm" style="padding: 10px; width: 35px; border-radius: 20px; position: absolute; right: 20px;"></i>
+                <i id="iphone-lightbulb-button" class="fas hoverable-icon-lockscreen bg-dark-custom fa-lightbulb bg-gradient-trigger shadow-sm" style="padding: 10px; width: 35px; border-radius: 20px; position: absolute; left: 20px;"></i>
+                <i id="iphone-camera-button" class="fas hoverable-icon-lockscreen bg-dark-custom fa-cube shadow-sm" style="padding: 10px; width: 35px; border-radius: 20px; position: absolute; right: 20px;"></i>
             </div>
 
             {% if now|is_night %}
@@ -84,10 +84,10 @@
         <div id="iphone-chat-background" class="text-left" style="line-height: 120%; z-index: 1; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0) scale(0); {% if now|is_night %}background-color: #111;{% else %} background-color: #fff;{% endif %}">
             <img src="{% static 'img/profile.jpeg' %}" style="width: 30px; height: 30px; border-radius: 15px; position: absolute; left: 13px; top: 47px;">
             <div class="bg-dark mt-5 ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">Hey, how is it going? My name is Philipp. Let me tell you something about myself. ✌</div>
-            <div id="message-1" class="bg-dark ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I study Computer Science at TU Dresden (on Diploma, currently in the 7th semester).</div>
-            <div id="message-2" class="bg-dark ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I work at TU Dresden as a developer and tutor since April 2018. Additionally, I am self-employed as a software developer and designer.</div>
-            <div id="message-3" class="bg-dark ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I like 🏸 badminton, 🏂 snowboarding, 🚴🏼‍ cycling and 🏋🏻‍ any other kind of sports.</div>
-            <div id="message-4" class="bg-dark ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">If you are interested in software development, design or teaching, feel free to contact me!</div>
+            <div id="message-1" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I study Computer Science at TU Dresden (on Diploma, currently in the 7th semester).</div>
+            <div id="message-2" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I work at TU Dresden as a developer and tutor since April 2018. Additionally, I am self-employed as a software developer and designer.</div>
+            <div id="message-3" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I like 🏸 badminton, 🏂 snowboarding, 🚴🏼‍ cycling and 🏋🏻‍ any other kind of sports.</div>
+            <div id="message-4" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">If you are interested in software development, design or teaching, feel free to contact me!</div>
         </div>
 
         <div id="iphone-siri-background" class="text-left iphone-siri-background" style="line-height: 120%; z-index: 5; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0) scale(0);">
@@ -174,15 +174,6 @@
             });
         });
 
-        var currentGradient = {{gradient}};
-        var numOfGradients = 4;
-        $("#iphone-lightbulb-button").click(function() {
-            var elem = $("#siri-app-wrapper");
-            elem.removeClass("bg-gradient-siri-" + currentGradient);
-            currentGradient = (currentGradient + 1) % numOfGradients;
-            elem.addClass("bg-gradient-siri-" + currentGradient);
-        });
-
         var enable3D = false;
         var clientSupports3D = 'DeviceMotionEvent' in window;
         var startX = 1337;
@@ -215,13 +206,13 @@
                     startX = 1337;
                     startY = 1337;
                     window.addEventListener('deviceorientation', onDeviceMotion, false);
-                    $(this).removeClass("bg-dark");
+                    $(this).removeClass("bg-dark-custom");
                     $(this).addClass("bg-light");
                     $(this).removeClass("text-light");
                     $(this).addClass("text-dark");
                 } else {
                     window.removeEventListener('deviceorientation', onDeviceMotion, false);
-                    $(this).addClass("bg-dark");
+                    $(this).addClass("bg-dark-custom");
                     $(this).removeClass("bg-light");
                     $(this).addClass("text-light");
                     $(this).removeClass("text-dark");
@@ -423,7 +414,7 @@
             })
             .add({
                 duration: 200,
-            })
+            });
 
         function layout() {
             var element = $("#siri-app-wrapper");

@@ -42,7 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'ui',
     'siri',
+    'header',
+    'services',
     'visualization',
 ]
 
