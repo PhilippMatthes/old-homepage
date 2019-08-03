@@ -6,6 +6,7 @@ register = template.Library()
 
 @register.filter
 def is_night(now):
+    return True
     now = timezone.now().time()
     begin_time = time(22,00)
     end_time = time(6,00)
