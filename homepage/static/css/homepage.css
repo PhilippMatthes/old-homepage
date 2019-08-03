@@ -1,7 +1,9 @@
 
-body {
+html, body {
     font-family: 'Roboto', sans-serif !important;
     font-weight: 300 !important;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 .elegant-text-shadow {
@@ -125,5 +127,33 @@ ul.timeline > li:before {
     color: #f0f0f0;
     background-color: #1e272e;
     border-color: #909090;
+}
+
+h1.fancy {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+h1.fancy.header {
+    font-size: 60px;
+    font-weight: 700;
+}
+
+.card-columns {
+    column-count: 2;
+}
+
+@media screen and (max-width: 800px) {
+    h1.fancy {
+        font-size: 20px;
+    }
+
+    h1.fancy.header {
+        font-size: 30px;
+    }
+
+    .card-columns {
+        column-count: 1;
+    }
 }
 

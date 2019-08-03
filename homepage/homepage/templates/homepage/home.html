@@ -7,7 +7,7 @@
 
     {% include 'siri/app.html' %}
 
-    <nav class="navbar navbar-expand-lg navbar-dark shadow animate-background-transition bg-gradient-target {{ gradient.css_class }}" style="position: sticky; top: 0; z-index: 1337">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow animate-background-transition bg-gradient-target {{ gradient.css_class }}" style="position: fixed; width: 100%; top: 0; z-index: 1337; opacity: 0.0;">
         <div class="container">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggler" aria-controls="navbar-toggler" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon text-white"></span>
@@ -119,6 +119,7 @@
             window.shaderMaterial.uniforms.colorStart.value = new THREE.Color(gradientStartColors[currentGradientIndex]);
             window.shaderMaterial.uniforms.colorEnd.value = new THREE.Color(gradientEndColors[currentGradientIndex]);
         });
+
     });
 </script>
 

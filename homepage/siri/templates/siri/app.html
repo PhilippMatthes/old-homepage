@@ -347,7 +347,6 @@
                 translateY: [10, 0],
                 duration: 800,
                 delay: 300,
-                easing: 'easeInOutSine',
             });
             timeline.add({
                 duration: 50
@@ -357,7 +356,6 @@
                 targets: '#iphone-message',
                 opacity: 1.0,
                 duration: 50,
-                easing: 'easeInOutSine',
             });
         }
 
@@ -369,50 +367,45 @@
                 targets: '.iphone-lockscreen',
                 opacity: [1.0, 0.0],
                 duration: 50,
-                easing: 'easeInOutSine',
             })
             .add({
                 targets: '.iphone-app',
                 scale: [0.0, 1.0],
                 opacity: [0.0, 1.0],
                 duration: 50,
-                easing: 'easeInOutSine',
             })
             .add({
                 targets: '#iphone-chat-background',
                 scale: [0.0, 1.0],
                 duration: 50,
-                easing: 'easeInOutSine',
             })
             .add({
                 targets: '#message-1',
                 opacity: [0.0, 1.0],
                 translateY: [10, 0],
                 duration: 100,
-                easing: 'easeInOutSine',
             })
             .add({
                 targets: '#message-2',
                 opacity: [0.0, 1.0],
                 translateY: [10, 0],
                 duration: 100,
-                easing: 'easeInOutSine',
             })
             .add({
                 targets: '#message-3',
                 opacity: [0.0, 1.0],
                 translateY: [10, 0],
                 duration: 100,
-                easing: 'easeInOutSine',
             })
             .add({
                 targets: '#message-4',
                 opacity: [0.0, 1.0],
                 translateY: [10, 0],
                 duration: 100,
-                easing: 'easeInOutSine',
             })
             .add({
+                targets: 'nav',
+                opacity: [0.0, 1.0],
                 duration: 200,
             });
 
