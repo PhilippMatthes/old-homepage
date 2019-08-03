@@ -2,13 +2,14 @@
 {% load staticfiles %}
 
 <footer id="contact" class="p-4 {% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %} text-center" style="width: 100%; z-index: 1337;">
-    <div id="visualization-demo" style="height: 500px; width: 100%;">
+    <div id="visualization-demo" style="position: relative; height: 500px; width: 100%;">
+        <img src="{% static 'img/me.jpeg' %}" class="mt-3 mb-3"
+             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px; max-width: 100%; -webkit-border-radius: 100px;-moz-border-radius: 100px;border-radius: 100px;">
     </div>
     <div class="container {% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center">
         <h1 class="fancy header bg-gradient-target bg-clip-text {{ gradient.css_class }}">
             Contact
         </h1>
-        <img src="{% static 'img/me.jpeg' %}" class="mt-3 mb-3" style="width: 200px; max-width: 100%; -webkit-border-radius: 100px;-moz-border-radius: 100px;border-radius: 100px;">
         <h5><a class="{% if now|is_night %}text-light{% else %}text-dark{% endif %}" href="tel:+49 176 42090978">+49 176 42090978</a></h5>
         <h5><a class="{% if now|is_night %}text-light{% else %}text-dark{% endif %}" href="mailto:hello@philippmatth.es">hello@philippmatth.es</a></h5>
         <h2 class="mt-5 bg-gradient-target bg-clip-text {{ gradient.css_class }}"
@@ -75,12 +76,7 @@
                 uniform float zFar;
                 uniform float zNear;
 
-                varying vec2 vUv;
-                varying vec3 vPosition;
-                varying vec3 vIncident;
-                varying vec3 vNormal;
                 varying vec3 vDepth;
-                varying vec3 vCameraPosition;
 
                 vec3 calculateNormalizedDepth() {
                     float distanceToCamera = length(cameraPosition.xyz - position.xyz);
@@ -89,12 +85,7 @@
                 }
 
                 void main()	{
-                    vUv = uv;
-                    vPosition = position;
-                    vIncident = normalize(position.xyz - cameraPosition.xyz);
-                    vNormal = normal;
                     vDepth = calculateNormalizedDepth();
-                    vCameraPosition = cameraPosition.xyz;
 
                     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
                 }
@@ -103,12 +94,7 @@
             var fragmentShader = `
                 #extension GL_OES_standard_derivatives : enable
 
-                varying vec2 vUv;
-                varying vec3 vPosition;
-                varying vec3 vIncident;
-                varying vec3 vNormal;
                 varying vec3 vDepth;
-                varying vec3 vCameraPosition;
 
                 uniform float thickness;
                 uniform vec3 colorStart;
@@ -120,25 +106,8 @@
                 }
 
                 void main() {
-                    vec3 color = vec3(0.0);
-                    color = mix(colorStart, colorEnd, length(vDepth));
-
-                    float ambientStrength = 0.5;
-                    vec3 vAmbient = ambientStrength * vec3(1.0);
-
-                    vec3 vLightDir = normalize(vec3(25.0, 30.0, -10.0) - vPosition);
-                    float diff = max(dot(vNormal, vLightDir), 0.0);
-                    vec3 vDiffuse = diff * vec3(1.0);
-
-                    float specularStrength = 1.0;
-                    vec3 vViewDir = normalize(vCameraPosition - vPosition);
-                    vec3 vReflectDir = reflect(-vLightDir, vNormal);
-                    float spec = pow(max(dot(vViewDir, vReflectDir), 0.0), 32.0);
-                    vec3 vSpecular = specularStrength * spec * vec3(1.0);
-
-                    vec3 result = (vAmbient + vDiffuse + vSpecular) * color;
-
-                    gl_FragColor = vec4(result, 1.0);
+                    vec3 color = mix(colorStart, colorEnd, length(vDepth));
+                    gl_FragColor = vec4(color, 1.0);
                 }
             `;
 
@@ -158,13 +127,13 @@
                 fragmentShader
             });
 
-            geometry = new THREE.TorusKnotBufferGeometry( 10, 0.5, 64, 8, 1, 10 );
+            geometry = new THREE.TorusKnotBufferGeometry( 10, 0.3, 100, 8, 1, 3 );
             mesh = new THREE.Mesh( geometry, window.shaderMaterial );
 
             meshRotations = [];
             meshRotationSpeeds = [];
 
-            var totalNumberOfRings = 5;
+            var totalNumberOfRings = 10;
             for (var i = 0; i < totalNumberOfRings; i++) {
                 var clonedMesh = mesh.clone();
                 scene.add(clonedMesh);
