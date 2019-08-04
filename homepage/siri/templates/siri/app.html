@@ -3,7 +3,7 @@
 
 <div id="siri-app-wrapper" class="animate-background-transition bg-gradient-target {{ gradient.css_class }}" style="height: 5000px; position: relative;">
 
-    <div id="siri-app-sticky-wrapper" class="text-center text-white simulate-sticky-top" style="height: 700px;">
+    <div id="siri-app-sticky-wrapper" class="text-center text-white simulate-sticky-top" style="height: 700px; transition: top 1s ease;">
 
         <div class="translatable" style="height: 700px">
 
@@ -81,15 +81,18 @@
 
         </div>
 
-        <div id="iphone-chat-background" class="text-left" style="line-height: 120%; z-index: 1; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0) scale(0); {% if now|is_night %}background-color: #111;{% else %} background-color: #fff;{% endif %}">
+        <div id="iphone-chat-background" class="text-left" style="font-size: 13px; line-height: 120%; z-index: 1; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0) scale(0); {% if now|is_night %}background-color: #111;{% else %} background-color: #fff;{% endif %}">
             <img src="{% static 'img/profile.jpeg' %}" style="width: 30px; height: 30px; border-radius: 15px; position: absolute; left: 13px; top: 47px;">
             <div class="bg-dark mt-5 ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">Hey, how is it going? My name is Philipp. Let me tell you something about myself. ✌</div>
             <div id="message-1" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I study Computer Science at TU Dresden (on Diploma, currently in the 7th semester).</div>
             <div id="message-2" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I work at TU Dresden as a developer and tutor since April 2018. Additionally, I am self-employed as a software developer and designer.</div>
             <div id="message-3" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I like 🏸 badminton, 🏂 snowboarding, 🚴🏼‍ cycling and 🏋🏻‍ any other kind of sports.</div>
-            <textarea disabled class="rounded p-2 shadow bg-light border text-dark" placeholder="Type your message (coming soon!)"
-                      style="font-size: 13px; font-weight: 100; position: absolute; bottom: 20px; left: 20px; width: 220px; height: 38px;max-height: 200px;"></textarea>
-            <button disabled class="btn btn-primary p-0 rounded" style="width: 38px; height: 38px; position: absolute; right: 20px; bottom: 20px;"><span class="fas fa-paper-plane"></span></button>
+            <div id="iphone-chat-input-privacy" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px; opacity: 0.0;">If you click on <span class="fas fa-paper-plane"></span>, you agree that your message is temporarily stored and sent encrypted via email.</div>
+            <div id="iphone-chat-response-profile-icon" class="animate-background-transition bg-gradient-target {{ gradient.css_class }}" style="opacity: 0.0; width: 30px; height: 30px; border-radius: 15px; position: absolute; right: 13px; top: 387px;"><span class="fas fa-user-tie" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></span></div>
+            <div id="iphone-chat-response-message" class="bg-light text-dark mr-5 ml-3 mb-1 p-2" style="opacity: 0.0; max-height: 120px; text-overflow: ellipsis; overflow: auto; border-radius: 15px; white-space: pre-wrap;"></div>
+            <textarea id="iphone-chat-input-textarea" class="iphone-chat-input rounded-left p-2 shadow bg-light border text-dark" placeholder="Type your message"
+                      style="resize: none; font-size: 13px; font-weight: 100; position: absolute; bottom: 20px; left: 20px; width: 220px; height: 40px; max-height: 100px;"></textarea>
+            <button id="iphone-chat-input-button" class="iphone-chat-input rounded-right btn btn-primary p-0" style="width: 38px; height: 38px; position: absolute; right: 20px; bottom: 20px;"><span class="fas fa-paper-plane"></span></button>
         </div>
 
         <div id="iphone-siri-background" class="text-left iphone-siri-background" style="line-height: 120%; z-index: 5; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0) scale(0);">
@@ -144,6 +147,70 @@
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
 
+        $('textarea').each(function () {
+            $(this).css('height', (this.scrollHeight) + 'px');
+        }).on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        function emailIsInText(text) {
+            var re = /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
+            return re.test(text);
+        }
+
+        function numberIsInText(text){
+            var re = /\b[\+]?[(]?[0-9]{2,6}[)]?[-\s\.]?[-\s\/\.0-9]{3,15}\b/m;
+            return re.test(text)
+        }
+
+        $("#iphone-chat-input-button").click(function() {
+            var text = $("#iphone-chat-input-textarea").val();
+            var confirmed = true;
+            if (!emailIsInText(text) && !numberIsInText(text)) {
+                confirmed = confirm(
+                    "It seems like you gave no phone number or email in your message. Do you want to proceed, although I might not be able to contact you?"
+                );
+            }
+            if (confirmed) {
+                $.post({
+                    url: "{% url 'send_contact_message' %}",
+                    headers: {"X-CSRFToken": "{{ csrf_token }}"},
+                    dataType: "json",
+                    data: {"text": text},
+                    success: function(response) {
+                        if (response.success !== true) {
+                            alert("Your message could not be sent. Please try again later.");
+                        } else {
+                            $("#iphone-chat-response-message").text(text);
+                            anime({
+                                targets: ["#iphone-chat-response-message", "#iphone-chat-response-profile-icon"],
+                                opacity: 1.0,
+                                duration: 200,
+                                easing: 'easeInOutSine',
+                            });
+                            var textarea = $("#iphone-chat-input-textarea");
+                            textarea.val("");
+                            textarea.css("height", "40px");
+                            alert("Your message has been sent. Thank you!")
+                        }
+                    }
+                });
+            }
+        });
+
+        $("#iphone-chat-input-textarea").click(function() {
+            $([document.documentElement, document.body]).animate({
+                scrollTop: 3800
+            }, 2000);
+            anime({
+                targets: "#iphone-chat-input-privacy",
+                opacity: 1.0,
+                duration: 200,
+                easing: 'easeInOutSine',
+            });
+        });
+
         var siriWave = new SiriWave({
         	container: document.getElementById('siri-container'),
             style: "ios9",
@@ -156,7 +223,6 @@
             var randomNumberOfFlashes = Math.max(1, Math.floor(Math.random() * 10));
             for (var n = 0; n < randomNumberOfFlashes; n += 1) {
                 var randomDelay = 500 + Math.random() * 400;
-                console.log(flashes[i], randomDelay);
                 anime({
                     targets: flashes[i],
                     opacity: [0.0, 0.6, 0.0],
@@ -195,7 +261,7 @@
             x = (x - startX) / 11;
             y = (y - startY) / 11;
 
-            var transform =  x + "px, " + y + "px"
+            var transform =  x + "px, " + y + "px";
 
             translatable.css("transform", "translate(" + transform + ")");
             translatable.css("transform", "-webkit-translate(" + transform + ")");
@@ -382,7 +448,7 @@
                 duration: 50,
             })
             .add({
-                targets: '#iphone-chat-input',
+                targets: '.iphone-chat-input',
                 opacity: [0.0, 1.0],
                 duration: 100,
             })

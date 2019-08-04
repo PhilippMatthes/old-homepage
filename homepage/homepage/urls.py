@@ -17,13 +17,18 @@ from django.contrib import admin
 from django.conf.urls import url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
+from django.urls import include
 
 from . import views
 from . import settings
 
+from contact import urls as contact_urls
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
+
+    url(r'^contact/', include(contact_urls)),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

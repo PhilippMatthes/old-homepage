@@ -77,6 +77,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0f2027', end
     border-radius: 1rem !important;
 }
 
+.rounded-left {
+    border-radius: 25px 0 0 25px;
+}
+
+.rounded-right {
+    border-radius: 0 25px 25px 0;
+}
+
 .iphone-face-id-flash {
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#e00479+0,8f0222+44,000000+100 */
     background: #e00479; /* Old browsers */
@@ -145,11 +153,11 @@ h1.fancy.header {
 
 @media screen and (max-width: 800px) {
     h1.fancy {
-        font-size: 20px;
+        font-size: 30px;
     }
 
     h1.fancy.header {
-        font-size: 30px;
+        font-size: 40px;
     }
 
     .card-columns {
