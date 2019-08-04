@@ -7,6 +7,7 @@
 
         <div class="translatable" style="height: 700px">
 
+
             <div class="iphone-lockscreen" id="scroll-down-to-unlock" style="padding-top: 90px; font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 10px;">
                 <i class="fas fa-lock"></i> scroll down to unlock
             </div>
@@ -90,9 +91,9 @@
             <div id="iphone-chat-input-privacy" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px; opacity: 0.0;">If you click on <span class="fas fa-paper-plane"></span>, you agree that your message is temporarily stored and sent encrypted via email.</div>
             <div id="iphone-chat-response-profile-icon" class="animate-background-transition bg-gradient-target {{ gradient.css_class }}" style="opacity: 0.0; width: 30px; height: 30px; border-radius: 15px; position: absolute; right: 13px; top: 387px;"><span class="fas fa-user-tie" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></span></div>
             <div id="iphone-chat-response-message" class="bg-light text-dark mr-5 ml-3 mb-1 p-2" style="opacity: 0.0; max-height: 120px; text-overflow: ellipsis; overflow: auto; border-radius: 15px; white-space: pre-wrap;"></div>
-            <textarea id="iphone-chat-input-textarea" class="iphone-chat-input rounded-left p-2 shadow bg-light border text-dark" placeholder="Type your message"
-                      style="resize: none; font-size: 13px; font-weight: 100; position: absolute; bottom: 20px; left: 20px; width: 220px; height: 40px; max-height: 100px;"></textarea>
-            <button id="iphone-chat-input-button" class="iphone-chat-input rounded-right btn btn-primary p-0" style="width: 38px; height: 38px; position: absolute; right: 20px; bottom: 20px;"><span class="fas fa-paper-plane"></span></button>
+            <textarea id="iphone-chat-input-textarea" class="iphone-chat-input rounded-left-custom pt-2 pl-3 pb-2 shadow bg-light border text-dark" placeholder="Type your message"
+                      style="resize: none; font-size: 16px; font-weight: 100; position: absolute; bottom: 20px; left: 20px; width: 220px; height: 40px; max-height: 100px;"></textarea>
+            <button id="iphone-chat-input-button" class="iphone-chat-input rounded-right-custom btn btn-primary p-0" style="width: 38px; height: 38px; position: absolute; right: 20px; bottom: 20px;"><span class="fas fa-paper-plane"></span></button>
         </div>
 
         <div id="iphone-siri-background" class="text-left iphone-siri-background" style="line-height: 120%; z-index: 5; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0) scale(0);">
@@ -200,9 +201,6 @@
         });
 
         $("#iphone-chat-input-textarea").click(function() {
-            $([document.documentElement, document.body]).animate({
-                scrollTop: 3800
-            }, 2000);
             anime({
                 targets: "#iphone-chat-input-privacy",
                 opacity: 1.0,
