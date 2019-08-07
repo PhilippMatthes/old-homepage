@@ -24,10 +24,11 @@ from tqdm import tqdm
 
 # Feed Forward
 def feed_forward(text, target_dir):
-
-    g = Graph(mode="synthesize")
+    tf.reset_default_graph()
 
     with tf.Session() as sess:
+        g = Graph(mode="synthesize")
+
         sess.run(tf.global_variables_initializer())
 
         # Restore parameters
@@ -41,7 +42,6 @@ def feed_forward(text, target_dir):
         saver2.restore(sess, tf.train.latest_checkpoint(hp.logdir + "-2"))
 
         L = load_data(text)
-        max_T = len(text)
         Y = np.zeros((len(L), hp.max_T, hp.n_mels), np.float32)
         prev_max_attentions = np.zeros((len(L),), np.int32)
         for j in tqdm(range(hp.max_T)):
@@ -64,7 +64,7 @@ def feed_forward(text, target_dir):
         write(target_dir + "/output.wav", hp.sr, output)
 
         # Generate mp3 file with lame
-        proc = subprocess.Popen(["lame", target_dir + "/output.wav"])
+        proc = subprocess.Popen(["lame", "--preset", "insane", target_dir + "/output.wav"])
         proc.communicate()
 
         return target_dir + "/output.mp3"

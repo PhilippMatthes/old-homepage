@@ -13,6 +13,11 @@
 		<ul class="timeline">
 			{% for milestone in milestones %}
 			<li id="milestone-{{milestone.id}}">
+				{% if milestone.readable_audio %}
+                <button class="float-right btn btn-sm btn-outline-light read-button"
+                        data-audio-url="{{ milestone.readable_audio.url }}"
+                ><span class="fas fa-assistive-listening-systems"></span> Assistive reading <span class="badge badge-secondary">BETA</span></button>
+                {% endif %}
 				<h4 class="text-white">{{ milestone.title }}</h4>
 				<p class="text-white">{{ milestone.description }}</p>
 				{% spaceless %}

@@ -15,8 +15,13 @@
             <div class="iphone-lockscreen" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px">{% now "jS \o\f F Y" %}</div>
             <div class="iphone-lockscreen" style="width: 270px; border-radius: 10px; position: absolute; bottom: 100px; left: 50%; transform: translate(-50%, 0); background-color: rgba(0, 0, 0, 0.8);">
                 <i id="iphone-lightbulb-button" class="fas hoverable-icon-lockscreen bg-dark-custom fa-lightbulb bg-gradient-trigger shadow-sm" style="padding: 10px; width: 35px; border-radius: 20px; position: absolute; left: 20px;"></i>
+                <div style="position: absolute; left: 50%; transform: translate(-50%, 0);">
+                    <i id="iphone-down-button" class="fas fa-angle-double-down"></i><br>
+                    <p id="iphone-down-text">Scroll down</p>
+                </div>
                 <i id="iphone-camera-button" class="fas hoverable-icon-lockscreen bg-dark-custom fa-cube shadow-sm" style="padding: 10px; width: 35px; border-radius: 20px; position: absolute; right: 20px;"></i>
             </div>
+
 
             {% if now|is_night %}
             <div id="iphone-do-not-disturb" class="iphone-lockscreen text-left shadow" style="width: 270px; border-radius: 10px; position: absolute; top: 250px; left: 50%; transform: translate(-50%, 0); background-color: rgba(0, 0, 0, 0.8);">
@@ -88,12 +93,13 @@
             <div id="message-1" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I study Computer Science at TU Dresden (on Diploma, currently in the 7th semester).</div>
             <div id="message-2" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I work at TU Dresden as a developer and tutor since April 2018. Additionally, I am self-employed as a software developer and designer.</div>
             <div id="message-3" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I like 🏸 badminton, 🏂 snowboarding, 🚴🏼‍ cycling and 🏋🏻‍ any other kind of sports.</div>
+            {% comment %}
             <div id="iphone-chat-input-privacy" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px; opacity: 0.0;">If you click on <span class="fas fa-paper-plane"></span>, you agree that your message is temporarily stored and sent encrypted via email.</div>
             <div id="iphone-chat-response-profile-icon" class="animate-background-transition bg-gradient-target {{ gradient.css_class }}" style="opacity: 0.0; width: 30px; height: 30px; border-radius: 15px; position: absolute; right: 13px; top: 387px;"><span class="fas fa-user-tie" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></span></div>
             <div id="iphone-chat-response-message" class="bg-light text-dark mr-5 ml-3 mb-1 p-2" style="opacity: 0.0; max-height: 120px; text-overflow: ellipsis; overflow: auto; border-radius: 15px; white-space: pre-wrap;"></div>
-            <textarea id="iphone-chat-input-textarea" class="iphone-chat-input rounded-left-custom pt-2 pl-3 pb-2 shadow bg-light border text-dark" placeholder="Type your message"
-                      style="resize: none; font-size: 16px; font-weight: 100; position: absolute; bottom: 20px; left: 20px; width: 220px; height: 40px; max-height: 100px;"></textarea>
+            <textarea id="iphone-chat-input-textarea" class="iphone-chat-input rounded-left-custom pt-2 pl-3 pb-2 shadow bg-light border text-dark" placeholder="Type your message" style="resize: none; font-size: 16px; font-weight: 100; position: absolute; bottom: 20px; left: 20px; width: 220px; height: 40px; max-height: 100px;"></textarea>
             <button id="iphone-chat-input-button" class="iphone-chat-input rounded-right-custom btn btn-primary p-0" style="width: 38px; height: 38px; position: absolute; right: 20px; bottom: 20px;"><span class="fas fa-paper-plane"></span></button>
+            {% endcomment %}
         </div>
 
         <div id="iphone-siri-background" class="text-left iphone-siri-background" style="line-height: 120%; z-index: 5; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0) scale(0);">
@@ -102,7 +108,7 @@
             {% if forecast %}
             <a id="iphone-siri-call-weather"  class="mt-5 ml-3 mr-3 mb-2 p-2 text-white" style="position: absolute; top: 50px; left: 0; font-size: 12px; "><span class="fas fa-chevron-right"></span> What's the weather for Dresden?</a>
             {% endif %}
-            <a id="iphone-siri-call-explanation"  class="mt-5 ml-3 mr-3 mb-2 p-2 text-white" style="position: absolute; top: 70px; left: 0; font-size: 12px; "><span class="fas fa-chevron-right"></span> How does this demo work?</a>
+            <a id="iphone-siri-call-explanation"  class="mt-5 ml-3 mr-3 mb-2 p-2 text-white" style="position: absolute; top: 70px; left: 0; font-size: 12px; "><span class="fas fa-chevron-right"></span> How is this voice created?</a>
             {% if forecast %}
             <div id="iphone-siri-weather" class="ml-3 mr-3 mb-1 p-2" style="position: absolute; top: 150px; left: 0; font-size: 12px; transform: scale(0)">
                 {{ forecast.text }}
@@ -142,11 +148,16 @@
 
     </div>
 
+    <svg style="position: absolute; bottom: 0; width: 100%;" class="svg-fill-target" fill="{% if now|is_night %}#1e272e{% else %}#f8f9fa{% endif %}" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 50" preserveAspectRatio="none">
+        <path d="M 0 0 L 0 0 Q 200 50 400 50 Q 600 50 800 0 L 800 50 L 0 50 Z"></path>
+    </svg>
+
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
 
+        {% comment %}
         $('textarea').each(function () {
             $(this).css('height', (this.scrollHeight) + 'px');
         }).on('input', function () {
@@ -207,6 +218,7 @@
                 easing: 'easeInOutSine',
             });
         });
+        {% endcomment %}
 
         var siriWave = new SiriWave({
         	container: document.getElementById('siri-container'),
@@ -392,6 +404,24 @@
             duration: 3000,
             delay: 500,
             easing: 'easeInOutSine',
+        });
+
+        anime({
+            targets:'#iphone-down-button',
+            translateY: [0, -10, 0],
+            duration: 3000,
+            delay: 0,
+            easing: 'easeInOutSine',
+            loop: true,
+        });
+
+        anime({
+            targets:'#iphone-down-text',
+            scale: [1.0, 1.1, 1.0],
+            duration: 1500,
+            delay: 0,
+            easing: 'easeInOutSine',
+            loop: true,
         });
 
         var timeline = anime.timeline({

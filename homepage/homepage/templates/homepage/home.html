@@ -120,6 +120,19 @@
             window.shaderMaterial.uniforms.colorEnd.value = new THREE.Color(gradientEndColors[currentGradientIndex]);
         });
 
+        var readingAudios = [];
+
+        $(".read-button").click(function() {
+             var url = $(this).attr("data-audio-url");
+             var audio = new Audio(url);
+             for (var i = 0; i < readingAudios.length; i++) {
+                 readingAudios[i].pause();
+                 readingAudios[i].currentTime = 0;
+             }
+             readingAudios.push(audio);
+             audio.play();
+        });
+
     });
 </script>
 

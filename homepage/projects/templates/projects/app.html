@@ -17,6 +17,11 @@
                 <h4 class="font-weight-light m-0"><span class="{{ service.icon_css }}"></span> {{ project.title }}</h4>
                 <img class="mt-5" src="{{ project.thumbnail.url }}" style="width: 100%;">
                 <p class="mt-2">{{ project.description }}</p>
+                {% if project.readable_audio %}
+                <button class="btn btn-sm {% if now|is_night %}btn-outline-light{% else %}btn-outline-primary{% endif %} read-button"
+                        data-audio-url="{{ project.readable_audio.url }}"
+                ><span class="fas fa-assistive-listening-systems"></span> Assistive reading <span class="badge badge-secondary">BETA</span></button>
+                {% endif %}
             </div>
         </div>
     {% endfor %}
