@@ -29,9 +29,9 @@ USE_TZ = True
 SECRET_KEY = '=4ss5mfzoz2k_pq#e5o*z0*k0$fzch55v_cn4xx$k4%(=^3z+e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"] if DEBUG else []
+ALLOWED_HOSTS = ["*"] if DEBUG else ["philippmatth.es", "www.philippmatth.es"]
 
 
 # Application definition
@@ -138,3 +138,12 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+EMAIL_FROM = "homepage@philippmatth.es"
+EMAIL_TO = "hello@philippmatth.es"
+EMAIL_HOST = "smtp.strato.de"
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "mail@philippmatth.es"
+EMAIL_HOST_PASSWORD = "***"
+EMAIL_USE_SSL = True
