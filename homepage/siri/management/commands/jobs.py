@@ -39,13 +39,9 @@ This data is fetched from openweathermap. There might be some inaccuracies.""".f
     ).strip()
 
     with tempfile.TemporaryDirectory() as tempdir:
-        outfile_path = feed_forward(text, str(tempdir))
+        outfile_mp3 = feed_forward(text, str(tempdir))
 
-        # Generate mp3 file with lame
-        proc = subprocess.Popen(["lame", outfile_path])
-        proc.communicate()
-
-        with open(tempdir + "/output.mp3", 'rb') as f:
+        with open(outfile_mp3, 'rb') as f:
             audio = SimpleUploadedFile("forecast_{}.mp3".format(str(timezone.now())), f.read())
             Forecast.objects.create(text=text, audio=audio)
 

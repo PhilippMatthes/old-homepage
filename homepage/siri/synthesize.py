@@ -8,6 +8,7 @@ https://www.github.com/kyubyong/dc_tts
 from __future__ import print_function
 
 import os
+import subprocess
 
 from siri.hyperparams import Hyperparams as hp
 import numpy as np
@@ -61,4 +62,9 @@ def feed_forward(text, target_dir):
             wavs.append(wav)
         output = np.concatenate(wavs, axis=0)
         write(target_dir + "/output.wav", hp.sr, output)
-        return target_dir + "/output.wav"
+
+        # Generate mp3 file with lame
+        proc = subprocess.Popen(["lame", target_dir + "/output.wav"])
+        proc.communicate()
+
+        return target_dir + "/output.mp3"
