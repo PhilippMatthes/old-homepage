@@ -1,3 +1,5 @@
+import subprocess
+
 import requests
 import json
 import datetime
@@ -26,20 +28,25 @@ def get_weather_data():
     weather_data = r.json()
 
     text = """Here is the current forecast of Dresden, Germany:
-It is {main}. The temperature is currently at {temperature} degrees.
-The wind is {wind_speed} kilometers per hour in direction {wind_direction}.""".format(
-        date_str = timezone.now().strftime("%I %M %p"),
-        main = weather_data["weather"][0]["main"].lower(),
-        temperature = weather_data["main"]["temp"],
-        wind_speed = weather_data["wind"]["speed"],
-        wind_direction = deg_to_words(int(weather_data["wind"]["deg"])),
+{main}. The temperature is currently at {temperature} degrees.
+The wind is {wind_speed} kilometers per hour in direction {wind_direction}.
+This data is fetched from openweathermap. There might be some inaccuracies.""".format(
+        date_str=timezone.now().strftime("%I %M %p"),
+        main=weather_data["weather"][0]["main"].lower(),
+        temperature=weather_data["main"]["temp"],
+        wind_speed=weather_data["wind"]["speed"],
+        wind_direction=deg_to_words(int(weather_data["wind"]["deg"])),
     ).strip()
 
     with tempfile.TemporaryDirectory() as tempdir:
-        outfile = feed_forward(text, str(tempdir))
+        outfile_path = feed_forward(text, str(tempdir))
 
-        with open(outfile, 'rb') as f:
-            audio = SimpleUploadedFile("forecast_{}.wav".format(str(timezone.now())), f.read())
+        # Generate mp3 file with lame
+        proc = subprocess.Popen(["lame", outfile_path])
+        proc.communicate()
+
+        with open(tempdir + "/output.mp3", 'rb') as f:
+            audio = SimpleUploadedFile("forecast_{}.mp3".format(str(timezone.now())), f.read())
             Forecast.objects.create(text=text, audio=audio)
 
     with atomic():

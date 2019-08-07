@@ -12,7 +12,7 @@ import os
 from siri.hyperparams import Hyperparams as hp
 import numpy as np
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 import tensorflow as tf
 from siri.train import Graph
@@ -53,9 +53,7 @@ def feed_forward(text, target_dir):
             prev_max_attentions = _max_attentions[:, j]
         # Get magnitude
         Z = sess.run(g.Z, {g.Y: Y})
-        # Generate wav files
-        if not os.path.exists("samples"):
-            os.makedirs("samples")
+
         wavs = []
         for i, mag in enumerate(Z):
             print("Working on file", i+1)
