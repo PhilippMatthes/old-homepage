@@ -7,6 +7,7 @@ import tempfile
 
 from django.core.management.base import BaseCommand
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db.transaction import atomic
 from django.utils import timezone
 
 from siri.models import Forecast
@@ -40,6 +41,10 @@ The wind is {wind_speed} kilometers per hour in direction {wind_direction}.""".f
         with open(outfile, 'rb') as f:
             audio = SimpleUploadedFile("forecast_{}.wav".format(str(timezone.now())), f.read())
             Forecast.objects.create(text=text, audio=audio)
+
+    with atomic():
+        for forecast in list(Forecast.objects.all())[:-1]:
+            forecast.delete()
 
 
 class Command(BaseCommand):
