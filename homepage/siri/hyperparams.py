@@ -22,10 +22,10 @@ class Hyperparams:
     win_length = int(sr * frame_length)  # samples. =1102.
     n_mels = 80  # Number of Mel banks to generate
     power = 1.5  # Exponent for amplifying the predicted magnitude
-    n_iter = 10 # Number of inversion iterations
-    preemphasis = .97
-    max_db = 100
-    ref_db = 20
+    n_iter = 50 # Number of inversion iterations
+    preemphasis = .99
+    max_db = 110
+    ref_db = 25
 
     # Model
     r = 4 # Reduction factor. Do not change this.
@@ -45,7 +45,7 @@ class Hyperparams:
 
     # training scheme
     lr = 0.001 # Initial learning rate.
-    logdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "logdir") + "/LJ01"    
+    logdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "logdir") + "/LJ01"
     print("Using logdir: ", logdir)
 #logdir = "~/homepage/homepage/siri/logdir/LJ01"
     sampledir = 'samples'

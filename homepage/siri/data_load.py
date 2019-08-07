@@ -6,6 +6,9 @@ https://www.github.com/kyubyong/dc_tts
 '''
 
 from __future__ import print_function
+from nltk import tokenize
+
+import textwrap
 
 from siri.hyperparams import Hyperparams as hp
 import numpy as np
@@ -40,8 +43,13 @@ def load_data(text):
     text = re.sub(r"(\d+)", lambda x: num2words.num2words(int(x.group(0))), text)
     char2idx, idx2char = load_vocab()
 
-    lines = text.splitlines()
-    sents = [text_normalize(line.split(" ", 1)[-1]).strip() + "E" for line in lines] # text normalization, E: EOS
+    lines = tokenize.sent_tokenize(text)
+    lines_wrapped = []
+    for line in lines:
+        lines_wrapped += textwrap.wrap(line, hp.max_N - 5, break_long_words=False)
+    lines_wrapped = ["{}. {}".format(i, line) for i, line in enumerate(lines_wrapped)]
+    print(lines_wrapped)
+    sents = [text_normalize(line.split(" ", 1)[-1]).strip() + "E" for line in lines_wrapped] # text normalization, E: EOS
     texts = np.zeros((len(sents), hp.max_N), np.int32)
     for i, sent in enumerate(sents):
         texts[i, :len(sent)] = [char2idx[char] for char in sent]
