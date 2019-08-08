@@ -81,6 +81,7 @@ TEMPLATES = [
             ],
             'libraries':{
                 'is_night': 'templatetags.is_night',
+                'multiply': 'templatetags.multiply',
             }
         },
     },
