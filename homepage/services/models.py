@@ -25,10 +25,8 @@ class Service(Readable):
 class Technology(models.Model):
     title = models.TextField()
 
+    class Meta:
+        ordering = ["title"]
+
     def __str__(self):
         return self.title
-
-    @cached_property
-    def gradient(self):
-        random.seed(self.title)
-        return random.choice(list(Gradient.objects.all()))

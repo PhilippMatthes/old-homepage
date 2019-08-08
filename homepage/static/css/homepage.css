@@ -16,11 +16,11 @@ html, body {
     transition: all 0.5s ease;
 }
 
-.card:hover .shine {
+.card:hover .shine, .card.active {
     opacity: 0.35;
 }
 
-.card:hover {
+.card:hover, .card.active {
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22) !important;
 }
 

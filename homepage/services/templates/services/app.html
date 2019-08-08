@@ -28,7 +28,7 @@
 
         <div class="card-columns card-columns-sm" style="margin-top: 100px; margin-bottom: 100px;">
         {% for technology in technologies %}
-            <div id="service-{{service.id}}" class="card text-center rounded bg-transparent text-white shadow-lg" style="position: relative;">
+            <div id="technology-{{technology.id}}" class="card technology text-center rounded bg-transparent text-white shadow-lg" style="position: relative;">
                 <div class="card-body p-2">
                     <p class="font-weight-bold m-0"> {{ technology.title }}</p>
                 </div>
@@ -36,9 +36,35 @@
         {% endfor %}
         </div>
 
+        <p class="fancy header text-white text-center">
+                ...and much more!
+        </p>
+
     </div>
 
 </div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+        anime({
+            targets: '.technology',
+            scale: [
+                {value: anime.random(0.95, 1.05), easing: 'easeInOutQuad', duration: 500},
+                {value: 1, easing: 'easeInOutQuad', duration: 500}
+            ],
+            loopBegin: function(anim) {
+                console.log(anim);
+                $(this).toggleClass("active");
+            },
+            delay: anime.stagger(200, {grid: [5, 5], from: 'center'}),
+            loop: true,
+        });
+
+    });
+
+</script>
 
 
 
