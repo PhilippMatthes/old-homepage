@@ -44,27 +44,4 @@
 
 </div>
 
-<script>
-
-    document.addEventListener("DOMContentLoaded", function(event) {
-
-        anime({
-            targets: '.technology',
-            scale: [
-                {value: anime.random(0.95, 1.05), easing: 'easeInOutQuad', duration: 500},
-                {value: 1, easing: 'easeInOutQuad', duration: 500}
-            ],
-            loopBegin: function(anim) {
-                console.log(anim);
-                $(this).toggleClass("active");
-            },
-            delay: anime.stagger(200, {grid: [5, 5], from: 'center'}),
-            loop: true,
-        });
-
-    });
-
-</script>
-
-
 
