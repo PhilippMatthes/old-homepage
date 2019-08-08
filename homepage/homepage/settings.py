@@ -29,7 +29,7 @@ USE_TZ = True
 SECRET_KEY = '=4ss5mfzoz2k_pq#e5o*z0*k0$fzch55v_cn4xx$k4%(=^3z+e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"] if DEBUG else ["philippmatth.es", "www.philippmatth.es"]
 
