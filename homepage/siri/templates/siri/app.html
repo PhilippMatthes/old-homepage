@@ -1,12 +1,11 @@
 {% load staticfiles %}
 {% load is_night %}
 
-<div id="siri-app-wrapper" class="animate-background-transition bg-gradient-target {{ gradient.css_class }}" style="height: 5000px; position: relative;">
+<div id="siri-app-wrapper" class="animate-background-transition bg-gradient-target {{ gradient.css_class }}" style="height: 2500px; position: relative;">
 
-    <div id="siri-app-sticky-wrapper" class="text-center text-white simulate-sticky-top" style="height: 700px; transition: top 1s ease;">
+    <div id="siri-app-sticky-wrapper" class="text-center text-white" style="opacity: 0.0; position: fixed; width: 100%; height: 700px; transition: all 1s ease;">
 
         <div class="translatable" style="height: 700px">
-
 
             <div class="iphone-lockscreen" id="scroll-down-to-unlock" style="padding-top: 90px; font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 10px;">
                 <i class="fas fa-lock"></i> scroll down to unlock
@@ -88,11 +87,11 @@
         </div>
 
         <div id="iphone-chat-background" class="text-left" style="font-size: 13px; line-height: 120%; z-index: 1; height: 640px; width: 300px; border-radius: 30px; position: absolute; top: 40px; left: 50%; transform: translate(-50%, 0) scale(0); {% if now|is_night %}background-color: #111;{% else %} background-color: #fff;{% endif %}">
-            <img src="{% static 'img/profile.jpeg' %}" style="width: 30px; height: 30px; border-radius: 15px; position: absolute; left: 13px; top: 47px;">
-            <div class="bg-dark mt-5 ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">Hey, how is it going? My name is Philipp. Let me tell you something about myself. ✌</div>
-            <div id="message-1" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I study Computer Science at TU Dresden (on Diploma, currently in the 7th semester).</div>
-            <div id="message-2" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I work at TU Dresden as a developer and tutor since April 2018. Additionally, I am self-employed as a software developer and designer.</div>
-            <div id="message-3" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I like 🏸 badminton, 🏂 snowboarding, 🚴🏼‍ cycling and 🏋🏻‍ any other kind of sports.</div>
+            <img class="message" src="{% static 'img/profile.jpeg' %}" style="width: 30px; height: 30px; border-radius: 15px; position: absolute; left: 13px; top: 47px;">
+            <div class="message bg-dark mt-5 ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">Hey, how is it going? My name is Philipp. Let me tell you something about myself. ✌</div>
+            <div id="message-1" class="message bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I study Computer Science at TU Dresden (on Diploma, currently in the 7th semester).</div>
+            <div id="message-2" class="message bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I work at TU Dresden as a developer and tutor since April 2018. Additionally, I am self-employed as a software developer and designer.</div>
+            <div id="message-3" class="message bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px;">I like 🏸 badminton, 🏂 snowboarding, 🚴🏼‍ cycling and 🏋🏻‍ any other kind of sports.</div>
             {% comment %}
             <div id="iphone-chat-input-privacy" class="bg-dark-custom ml-5 mr-3 mb-1 p-2" style="border-radius: 15px; opacity: 0.0;">If you click on <span class="fas fa-paper-plane"></span>, you agree that your message is temporarily stored and sent encrypted via email.</div>
             <div id="iphone-chat-response-profile-icon" class="animate-background-transition bg-gradient-target {{ gradient.css_class }}" style="opacity: 0.0; width: 30px; height: 30px; border-radius: 15px; position: absolute; right: 13px; top: 387px;"><span class="fas fa-user-tie" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></span></div>
@@ -144,13 +143,10 @@
         </div>
 
         <img id="iphone" style="pointer-events:none; z-index: 10; position: absolute; top: 10px; left: 50%; height: 700px; transform: translate(-50%, 0)" src="{% static 'img/iphone.png' %}">
-        <img id="iphone-shadow" style="pointer-events:none; position: absolute; bottom: -25px; left: 50%; transform: translate(-50%, 0); opacity: 0.5;" src="{% static 'img/iphone-shadow.png' %}">
 
     </div>
 
-    <svg style="position: absolute; bottom: 0; width: 100%;" class="svg-fill-target" fill="{% if now|is_night %}#1e272e{% else %}#f8f9fa{% endif %}" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 50" preserveAspectRatio="none">
-        <path d="M 0 0 L 0 0 Q 200 50 400 50 Q 600 50 800 0 L 800 50 L 0 50 Z"></path>
-    </svg>
+    <img id="iphone-shadow" style="pointer-events:none; position: fixed; bottom: 0; left: 50%; transform: translate(-50%, 0); opacity: 0.5;" src="{% static 'img/iphone-shadow.png' %}">
 
 </div>
 
@@ -301,7 +297,6 @@
         });
 
         $(".scroll-to-messages").click(function() {
-            var element = $("#siri-app-wrapper");
             $([document.documentElement, document.body]).animate({
                 scrollTop: 1700
             }, 2000);
@@ -426,7 +421,6 @@
 
         var timeline = anime.timeline({
           easing: 'easeInOutSine',
-          duration: 1500,
           autoplay: false,
         });
 
@@ -456,9 +450,6 @@
 
         timeline
             .add({
-                duration: 50,
-            })
-            .add({
                 targets: '.iphone-lockscreen',
                 opacity: [1.0, 0.0],
                 duration: 50,
@@ -474,11 +465,13 @@
                 scale: [0.0, 1.0],
                 duration: 50,
             })
+            {% comment %}
             .add({
                 targets: '.iphone-chat-input',
                 opacity: [0.0, 1.0],
                 duration: 100,
             })
+            {% endcomment %}
             .add({
                 targets: '#message-1',
                 opacity: [0.0, 1.0],
@@ -501,40 +494,56 @@
                 targets: '.navigation-element',
                 opacity: [0.0, 1.0],
                 duration: 200,
-            });
+            })
+            .add({
+                targets: '#siri-app-sticky-wrapper',
+                translateY: [0, -window.innerHeight],
+                opacity: [1.0, 0.0],
+                duration: 100,
+            })
+            .add({
+                targets: '#iphone-shadow',
+                opacity: [0.5, 0.0],
+                duration: 200,
+            }, "-=100")
+            .add({
+                duration: 100,
+            })
+            ;
 
-        function layout() {
+        function layoutScroll() {
             var element = $("#siri-app-wrapper");
             var top = element.offset().top;
             var height = element.innerHeight();
             var deltaTop = window.scrollY - top;
-            var percentage = Math.min(Math.max(deltaTop, 0) / height, 1);
 
-            timeline.seek(timeline.duration * percentage);
-
-            var stickyWrapper = $("#siri-app-sticky-wrapper");
-            var isBelow = deltaTop > (5000 - window.innerHeight);
-            var isInside = window.pageYOffset >= top && !isBelow;
-            var iphoneHeight = 700;
-            var distToTopOrBottom = (window.innerHeight - iphoneHeight) / 2;
-            if (isInside) {
-                stickyWrapper.addClass("simulate-sticky-fixed");
-                stickyWrapper.removeClass("simulate-sticky-absolute");
-                stickyWrapper.css({"top": distToTopOrBottom, "bottom": "inherit"})
-            } else if(isBelow) {
-                stickyWrapper.removeClass("simulate-sticky-fixed");
-                stickyWrapper.addClass("simulate-sticky-absolute");
-                stickyWrapper.css({"bottom": distToTopOrBottom, "top": "inherit"})
-            } else {
-                stickyWrapper.removeClass("simulate-sticky-fixed");
-                stickyWrapper.addClass("simulate-sticky-absolute");
-                stickyWrapper.css({"top": distToTopOrBottom, "bottom": "inherit"})
-            }
+            var nextProgress = Math.min(Math.max(deltaTop, 0) / height, 1) * timeline.duration;
+            var currentProgress = (timeline.progress / 100) * timeline.duration;
+            anime({
+                duration: 300,
+                easing: 'easeInOutSine',
+                update: function(anim) {
+                    var lerpedProgress = currentProgress + (nextProgress - currentProgress) * (anim.progress / 100);
+                    timeline.seek(lerpedProgress);
+                }
+            });
         }
 
-        layout();
+        function layoutResize() {
+            var scale = Math.min((window.innerWidth * 2) / 700, (window.innerHeight * 2) / 1500);
+            var stickyWrapper = $("#siri-app-sticky-wrapper");
+            stickyWrapper.css("transform", "scale(" + scale + ")");
 
-        window.addEventListener("scroll", layout);
-        window.addEventListener("resize", layout);
+            var iphoneHeight = stickyWrapper.innerHeight();
+            var distToTopOrBottom = (window.innerHeight - iphoneHeight) / 2;
+            stickyWrapper.css({"top": distToTopOrBottom});
+        }
+
+        layoutScroll();
+        layoutResize();
+
+        window.addEventListener("scroll", layoutScroll);
+        window.addEventListener("resize", layoutResize);
+
     });
 </script>

@@ -7,8 +7,6 @@ class Service(Readable):
     title = models.TextField()
     description = models.TextField()
 
-    icon_css = models.TextField(default="")
-
     def __str__(self):
         return self.title
 

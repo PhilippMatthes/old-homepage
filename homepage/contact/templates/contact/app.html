@@ -46,10 +46,9 @@
             renderer.setSize(element.innerWidth(), element.innerHeight());
         }
 
-        function onScroll(event) {
+        function onScroll() {
             var element = $("#visualization-demo");
             var top = element.offset().top;
-            var bottom = element.offset().bottom;
             camera.position.z = ((window.scrollY - top) / 300.0);
         }
 
@@ -77,6 +76,7 @@
                 uniform float zNear;
 
                 varying vec3 vDepth;
+                varying vec3 vNormals;
 
                 vec3 calculateNormalizedDepth() {
                     float distanceToCamera = length(cameraPosition.xyz - position.xyz);
@@ -86,7 +86,7 @@
 
                 void main()	{
                     vDepth = calculateNormalizedDepth();
-
+                    vNormals = normal;
                     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
                 }
             `;
@@ -95,6 +95,7 @@
                 #extension GL_OES_standard_derivatives : enable
 
                 varying vec3 vDepth;
+                varying vec3 vNormals;
 
                 uniform float thickness;
                 uniform vec3 colorStart;
@@ -107,7 +108,7 @@
 
                 void main() {
                     vec3 color = mix(colorStart, colorEnd, length(vDepth));
-                    gl_FragColor = vec4(color, 1.0);
+                    gl_FragColor = vec4(mix(vNormals, color, 0.9), 1.0);
                 }
             `;
 
@@ -127,7 +128,7 @@
                 fragmentShader
             });
 
-            geometry = new THREE.TorusKnotBufferGeometry( 10, 0.3, 30, 8, 1, 10 );
+            geometry = new THREE.TorusKnotBufferGeometry( 10, 1, 20, 3, 1, 5 );
             mesh = new THREE.Mesh( geometry, window.shaderMaterial );
 
             meshRotations = [];

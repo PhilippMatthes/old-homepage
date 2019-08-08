@@ -23,7 +23,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbar-dropdown-services">
                     {% for service in services %}
-                        <a class="dropdown-item" href="#service-{{service.id}}">{{service.title}}</a>
+                        <a class="dropdown-item" href="#service-{{service.id}}">{{service.title|truncatechars:20}}</a>
                     {% endfor %}
                 </div>
               </li>
@@ -35,7 +35,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbar-dropdown-projects">
                     {% for project in projects %}
-                        <a class="dropdown-item" href="#project-{{project.id}}">{{project.title}}</a>
+                        <a class="dropdown-item" href="#project-{{project.id}}">{{project.title|truncatechars:20}}</a>
                     {% endfor %}
                 </div>
               </li>
@@ -47,7 +47,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbar-dropdown-timeline">
                     {% for milestone in milestones %}
-                        <a class="dropdown-item" href="#milestone-{{milestone.id}}">{{milestone.title}}</a>
+                        <a class="dropdown-item" href="#milestone-{{milestone.id}}">{{milestone.title|truncatechars:20}}</a>
                     {% endfor %}
                 </div>
               </li>
