@@ -13,8 +13,8 @@ $(document).ready(function() {
             var rect = $(this).get(0).getBoundingClientRect();
             var x = Math.abs(rect.x - event.clientX) / rect.width * 100;
             var y = Math.abs(rect.y - event.clientY) / rect.height * 100;
-            x = -(x-50)/10;
-            y = -(y-50)/10;
+            x = -(x-50)/5;
+            y = -(y-50)/5;
             $(this).css({
                 "transform": "rotateY(" + x + "deg) rotateX(" + y + "deg)",
             });

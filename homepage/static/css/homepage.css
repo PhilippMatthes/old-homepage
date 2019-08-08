@@ -165,8 +165,12 @@ h1.fancy.header {
     font-weight: 700;
 }
 
-.card-columns {
+.card-columns.card-columns-lg {
     column-count: 2;
+}
+
+.card-columns.card-columns-sm {
+    column-count: 4;
 }
 
 @media screen and (max-width: 800px) {
@@ -178,8 +182,12 @@ h1.fancy.header {
         font-size: 40px;
     }
 
-    .card-columns {
+    .card-columns.card-columns-lg {
         column-count: 1;
+    }
+
+    .card-columns.card-columns-sm {
+        column-count: 2;
     }
 }
 

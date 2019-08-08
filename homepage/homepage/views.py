@@ -2,7 +2,7 @@ from django.shortcuts import render
 import random
 
 from projects.models import Project
-from services.models import Service
+from services.models import Service, Technology
 from siri.models import Forecast
 from timeline.models import Milestone
 
@@ -20,4 +20,5 @@ def home(request):
         "services": Service.objects.all(),
         "projects": Project.objects.all(),
         "milestones": Milestone.objects.all(),
+        "technologies": Technology.objects.all(),
     })

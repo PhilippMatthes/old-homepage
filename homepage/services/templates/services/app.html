@@ -10,7 +10,7 @@
             <p class="text-light text-center mt-3">
                 I offer a variety of services that help us realize your project.
             </p>
-        <div class="card-columns text-center" style="margin-top: 100px; margin-bottom: 100px;">
+        <div class="card-columns card-columns-lg text-center" style="margin-top: 100px; margin-bottom: 100px;">
         {% for service in services %}
             <div id="service-{{service.id}}" class="card rounded {% if now|is_night %}bg-dark border-dark text-white{% else %}bg-light text-dark border-light{% endif %} shadow-lg" style="position: relative;">
                 <div class="card-body text-left">
@@ -24,7 +24,18 @@
                 </div>
             </div>
         {% endfor %}
-      </div>
+        </div>
+
+        <div class="card-columns card-columns-sm" style="margin-top: 100px; margin-bottom: 100px;">
+        {% for technology in technologies %}
+            <div id="service-{{service.id}}" class="card text-center rounded bg-transparent text-white shadow-lg" style="position: relative;">
+                <div class="card-body p-2">
+                    <p class="font-weight-bold m-0"> {{ technology.title }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
     </div>
 
 </div>

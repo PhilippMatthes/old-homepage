@@ -9,7 +9,7 @@
             <p class="{% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center mt-3">
                 Here is a selection of commercial projects that I realized together with my clients.
             </p>
-    <div class="card-columns text-center" style="margin-top: 100px;">
+    <div class="card-columns card-columns-lg text-center" style="margin-top: 100px;">
     {% for project in projects %}
         <div id="project-{{project.id}}" class="card rounded {% if now|is_night %}bg-dark border-dark text-white{% else %}bg-white text-dark border-light{% endif %} shadow-lg"
              style="position: relative;">
