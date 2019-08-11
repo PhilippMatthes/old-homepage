@@ -48,6 +48,8 @@ def update_readables():
     for readable in Readable.objects.all():
         if readable.readable_audio:
             continue
+        if not readable.is_ready:
+            continue
         with tempfile.TemporaryDirectory() as tempdir:
             outfile_mp3 = feed_forward(readable.readable_text, str(tempdir))
 

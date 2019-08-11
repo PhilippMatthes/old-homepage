@@ -25,6 +25,8 @@ class Readable(models.Model):
     readable_text = models.TextField(null=True, blank=True)
     readable_audio = models.FileField(upload_to="readables/", null=True, blank=True)
 
+    is_ready = models.BooleanField(default=True)
+
 
 @receiver(models.signals.post_delete, sender=Readable)
 def auto_delete_readable_audio_on_delete(sender, instance, **kwargs):
