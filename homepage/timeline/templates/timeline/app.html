@@ -13,7 +13,7 @@
 				<h4 class="text-white">{{ milestone.title }}</h4>
 				<p class="text-white">{{ milestone.description }}</p>
                 {% if milestone.readable_audio %}
-                <button class="btn btn-sm btn-outline-light read-button"
+                <button class="btn btn-sm btn-outline-light read-button mb-2 mt-2"
                         data-audio-url="{{ milestone.readable_audio.url }}"
                 ><span class="fas fa-assistive-listening-systems"></span> Assistive reading <span class="badge badge-secondary">BETA</span></button>
                 {% endif %}

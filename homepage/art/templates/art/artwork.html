@@ -3,5 +3,11 @@
 <div id="art-{{model.id}}"
      class="art card rounded masonry-brick m-2
             {% if now|is_night %}bg-dark border-dark text-white{% else %}bg-light text-dark border-light{% endif %} shadow-lg"
-     style="height: 30vh; width: 30vh; position: relative; opacity: 0; transform: scale(0); background-image: url({{ model.image.url }}); background-size: cover; background-position: center;">
+     style="{% if not model.is_video %}height: 30vh;{% endif %} width: 30vh; position: relative; opacity: 0; transform: scale(0);
+             {% if not model.is_video %}
+            background-image: url({{ model.file.url }}); background-size: cover; background-position: center;
+             {% endif %}">
+        {% if model.is_video %}
+            <video controls src="{{ model.file.url }}" class="rounded video-background"></video>
+        {% endif %}
 </div>

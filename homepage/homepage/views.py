@@ -14,6 +14,8 @@ def home(request):
     gradients = list(Gradient.objects.all())
     random.shuffle(gradients)
     gradient = gradients[0]
+    artworks = list(Artwork.objects.all().only("id"))
+    random.shuffle(artworks)
     return render(request, "homepage/home.html", {
         "forecast": Forecast.objects.last(),
         "gradient": gradient,
@@ -22,5 +24,5 @@ def home(request):
         "projects": Project.objects.all(),
         "milestones": Milestone.objects.all(),
         "technologies": Technology.objects.all(),
-        "artworks": Artwork.objects.all().only("id"),
+        "artworks": artworks,
     })

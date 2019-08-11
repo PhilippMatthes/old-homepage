@@ -151,6 +151,10 @@ ul.timeline > li {
   flex: auto;
 }
 
+.video-background {
+	width: 100%;
+}
+
 h1.fancy {
     font-size: 40px;
     font-weight: 700;

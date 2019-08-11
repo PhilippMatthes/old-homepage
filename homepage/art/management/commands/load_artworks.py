@@ -12,7 +12,7 @@ def load_artworks():
     files_dir = BASE_DIR + "/.." + "/files"
     for file in [f for f in listdir(files_dir) if isfile(join(files_dir, f))]:
         with open(files_dir + "/" + file, "rb") as f:
-            Artwork.objects.create(image=SimpleUploadedFile(
+            Artwork.objects.create(file=SimpleUploadedFile(
                 name=file,
                 content=f.read()
             ))
