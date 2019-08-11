@@ -1,7 +1,7 @@
 {% load staticfiles %}
 {% load is_night %}
 
-<div style="width: 100%; position: relative" class="animate-background-transition bg-gradient-target {{ gradient.css_class }} pt-5 pb-5">
+<div id="section-timeline" style="width: 100%; position: relative" class="animate-background-transition bg-gradient-target {{ gradient.css_class }} pt-5 pb-5">
 
     <div id="timeline" class="container pt-5 pb-5">
 		<h1 class="fancy header text-white text-center">
@@ -10,15 +10,15 @@
 		<ul class="timeline mt-5">
 			{% for milestone in milestones %}
 			<li id="milestone-{{milestone.id}}">
-				{% if milestone.readable_audio %}
-                <button class="float-right btn btn-sm btn-outline-light read-button"
+				<h4 class="text-white">{{ milestone.title }}</h4>
+				<p class="text-white">{{ milestone.description }}</p>
+                {% if milestone.readable_audio %}
+                <button class="btn btn-sm btn-outline-light read-button"
                         data-audio-url="{{ milestone.readable_audio.url }}"
                 ><span class="fas fa-assistive-listening-systems"></span> Assistive reading <span class="badge badge-secondary">BETA</span></button>
                 {% endif %}
-				<h4 class="text-white">{{ milestone.title }}</h4>
-				<p class="text-white">{{ milestone.description }}</p>
 				{% spaceless %}
-				<p class="text-white">
+				<p class="text-white" style="opacity: 0;">
 					{% if milestone.end_date %}
 					{{ milestone.start_date|date:"M Y" }} - {{ milestone.end_date|date:"M Y" }}
 					{% else %}
@@ -31,6 +31,52 @@
 		</ul>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var offset = window.innerHeight / 1.5;
+
+        var timeline = anime.timeline({
+            easing: 'easeInOutSine',
+            autoplay: false,
+        });
+
+        {% for milestone in milestones %}
+        timeline.add({
+            targets: '#milestone-{{ milestone.id }} p',
+            translateX: [-20, 0],
+            opacity: [0, 1],
+        });
+        {% endfor %}
+
+        function layoutScroll() {
+            var element = $("#section-timeline");
+            var top = element.offset().top;
+            var height = element.innerHeight();
+            var deltaTop = window.scrollY - top + offset;
+
+            var nextProgress = Math.min(Math.max(deltaTop, 0) / height, 1) * timeline.duration;
+            var currentProgress = (timeline.progress / 100) * timeline.duration;
+            anime({
+                duration: 300,
+                easing: 'easeInOutSine',
+                update: function (anim) {
+                    var lerpedProgress = currentProgress + (nextProgress - currentProgress) * (anim.progress / 100);
+                    timeline.seek(lerpedProgress);
+                }
+            });
+        }
+
+        function layoutResize() {
+            offset = window.innerHeight / 1.5;
+        }
+
+        layoutScroll();
+
+        window.addEventListener("scroll", layoutScroll);
+        window.addEventListener("resize", layoutResize);
+    });
+</script>
 
 
 

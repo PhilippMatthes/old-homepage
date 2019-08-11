@@ -1,0 +1,78 @@
+{% load staticfiles %}
+{% load is_night %}
+
+<div class="container mt-5 mb-5 text-center" style="position: relative;">
+
+    <div id="artwork-container" class="masonry text-center" style="margin-top: 100px;">
+
+    </div>
+
+    <p class="mt-5" id="artwork-end-hint" style="opacity: 0;">So far, that's all.</p>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+        var artworkIds = [
+            {% for artwork in artworks %}
+            "{{ artwork.id }}",
+            {% endfor %}
+        ];
+
+        var offset = window.innerHeight;
+
+        function onResize() {
+            offset = window.innerHeight;
+        }
+
+        function loadMoreArtworksIfNecessary() {
+            var element = $("#artwork-end-hint");
+            var top = element.offset().top;
+            var deltaTop = window.scrollY - top + offset;
+            if (deltaTop > 0) {
+                var artworkId = artworkIds.shift();
+                if (typeof artworkId === "undefined") {
+                    anime({
+                        targets: '#artwork-end-hint',
+                        opacity: 1,
+                        easing: "easeInOutSine",
+                        duration: 1000,
+                    });
+                    window.removeEventListener("scroll", loadMoreArtworksIfNecessary);
+                    window.removeEventListener("resize", onResize);
+                    return;
+                }
+                $.ajax({
+                    url: "{% url 'get_artwork' %}",
+                    type: "get",
+                    headers: {"X-CSRFToken": "{{ csrf_token }}"},
+                    data: {"artwork_id": artworkId},
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.success === true) {
+                            $("#artwork-container").append(response.html);
+                            var id = "#art-" + artworkId;
+                            console.log(id);
+                            window.applyShine($(id));
+                            anime({
+                                targets: id,
+                                scale: 1,
+                                opacity: 1,
+                                easing: "easeInOutSine",
+                                duration: 1000,
+                            });
+                            loadMoreArtworksIfNecessary();
+                        }
+                    }
+                });
+            }
+        }
+
+        window.addEventListener("scroll", loadMoreArtworksIfNecessary);
+        window.addEventListener("resize", onResize);
+
+        loadMoreArtworksIfNecessary();
+
+    });
+</script>

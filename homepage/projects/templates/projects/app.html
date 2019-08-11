@@ -2,17 +2,17 @@
 {% load is_night %}
 
 
-<div class="container mt-5 mb-5">
+<div id="projects-app-container" class="container mt-5 mb-5">
     <h1 class="fancy header {% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center">
-                Commercial Projects
-            </h1>
-            <p class="{% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center mt-3">
-                Here is a selection of commercial projects that I realized together with my clients.
-            </p>
+        Commercial Projects
+    </h1>
+    <p class="{% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center mt-3">
+        Here is a selection of commercial projects that I realized together with my clients.
+    </p>
     <div class="card-columns card-columns-lg text-center" style="margin-top: 100px;">
     {% for project in projects %}
-        <div id="project-{{project.id}}" class="card rounded {% if now|is_night %}bg-dark border-dark text-white{% else %}bg-white text-dark border-light{% endif %} shadow-lg"
-             style="position: relative;">
+        <div id="project-{{project.id}}" class="project card rounded {% if now|is_night %}bg-dark border-dark text-white{% else %}bg-white text-dark border-light{% endif %} shadow-lg"
+             style="position: relative; opacity: 0">
             <img class="card-img-top rounded" src="{{ project.thumbnail.url }}" style="width: 100%;">
             <div class="card-body text-left">
                 <h4 class="font-weight-light m-0"><span class="{{ service.icon_css }}"></span> {{ project.title }}</h4>
@@ -27,3 +27,35 @@
     {% endfor %}
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var offset = window.innerHeight / 2;
+
+        function layoutResize() {
+            offset = window.innerHeight / 2
+        }
+
+        function layoutScroll() {
+            var element = $("#projects-app-container");
+            var top = element.offset().top;
+            var deltaTop = window.scrollY - top + offset;
+            if (deltaTop > 0) {
+                anime({
+                    targets: '.project',
+                    opacity: 1,
+                    duration: 200,
+                    easing: 'easeInOutSine',
+                    delay: anime.stagger(300)
+                });
+                window.removeEventListener("scroll", layoutScroll);
+                window.removeEventListener("resize", layoutResize);
+            }
+        }
+
+        window.addEventListener("scroll", layoutScroll);
+        window.addEventListener("resize", layoutResize);
+
+        layoutScroll()
+    });
+</script>

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import random
 
+from art.models import Artwork
 from projects.models import Project
 from services.models import Service, Technology
 from siri.models import Forecast
@@ -21,4 +22,5 @@ def home(request):
         "projects": Project.objects.all(),
         "milestones": Milestone.objects.all(),
         "technologies": Technology.objects.all(),
+        "artworks": Artwork.objects.all().only("id"),
     })

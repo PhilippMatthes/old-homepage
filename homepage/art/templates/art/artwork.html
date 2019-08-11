@@ -1,0 +1,7 @@
+{% load is_night %}
+
+<div id="art-{{model.id}}"
+     class="art card rounded masonry-brick m-2
+            {% if now|is_night %}bg-dark border-dark text-white{% else %}bg-light text-dark border-light{% endif %} shadow-lg"
+     style="height: 30vh; width: 30vh; position: relative; opacity: 0; transform: scale(0); background-image: url({{ model.image.url }}); background-size: cover; background-position: center;">
+</div>

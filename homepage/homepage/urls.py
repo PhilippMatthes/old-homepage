@@ -23,12 +23,14 @@ from . import views
 from . import settings
 
 from contact import urls as contact_urls
+from art import urls as art_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
 
     url(r'^contact/', include(contact_urls)),
+    url(r'^art/', include(art_urls)),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
