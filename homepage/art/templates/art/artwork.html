@@ -10,4 +10,7 @@
                 background-image: url({{ model.file.url }});
             {% endif %}
             ">
+    {% if model.video %}
+    <span style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 100px;" class="fas fa-play-circle text-white"></span>
+    {% endif %}
 </div>
