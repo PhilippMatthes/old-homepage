@@ -79,7 +79,7 @@
                                         dataType: "json",
                                         success: function(response) {
                                             if (response.success === true) {
-                                                $("#artwork-modals-container").append(response.html);
+                                                $("#artwork-modals-container").html(response.html);
                                                 var modal = $("#artwork-modal-" + artworkId);
                                                 modal.modal('show');
                                                 modal.on("hidden.bs.modal", function () {

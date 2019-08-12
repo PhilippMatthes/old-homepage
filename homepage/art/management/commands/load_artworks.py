@@ -10,8 +10,10 @@ from homepage.settings import BASE_DIR
 
 def load_artworks():
     files_dir = BASE_DIR + "/.." + "/files"
-    for file in [f for f in listdir(files_dir) if isfile(join(files_dir, f))]:
-        if file.endswith("jpg"):
+    files = [f for f in listdir(files_dir) if isfile(join(files_dir, f))]
+    for file in files:
+        is_thumbnail = file.endswith(".jpg") and file.replace(".jpg", ".mp4") in files
+        if is_thumbnail:
             continue
         if file.endswith("mp4"):
             thumbnail = file.replace(".mp4", ".jpg")
