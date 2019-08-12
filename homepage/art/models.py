@@ -22,14 +22,6 @@ class Artwork(Readable, Renderable):
     def extension(self):
         return os.path.splitext(self.file.name)[1].replace(".", "")
 
-    @cached_property
-    def is_video(self):
-        endings = ["mkv", "mp4", "webm"]
-        for ending in endings:
-            if self.file.name.endswith(ending):
-                return True
-        return False
-
     def save(self, *args, **kwargs):
         if not self.description:
             self.is_ready = False
@@ -45,3 +37,9 @@ def auto_delete_forecast_audio_on_delete(sender, instance, **kwargs):
     if instance.file:
         if os.path.isfile(instance.file.path):
             os.remove(instance.file.path)
+
+
+class Video(Artwork):
+
+    thumbnail = models.ImageField(upload_to="thumbnails/")
+

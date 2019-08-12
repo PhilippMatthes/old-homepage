@@ -11,6 +11,10 @@
 
 </div>
 
+<div id="artwork-modals-container">
+
+</div>
+
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
 
@@ -53,7 +57,6 @@
                         if (response.success === true) {
                             $("#artwork-container").append(response.html);
                             var id = "#art-" + artworkId;
-                            console.log(id);
                             window.applyShine($(id));
                             anime({
                                 targets: id,
@@ -61,6 +64,31 @@
                                 opacity: 1,
                                 easing: "easeInOutSine",
                                 duration: 1000,
+                            });
+                            $(id).click(function() {
+                                var modal = $("#artwork-modal-" + artworkId);
+                                if (modal.length) {
+                                    modal.modal('show');
+                                    $("#artwork-modal-" + artworkId + " video").trigger("play");
+                                } else {
+                                    $.ajax({
+                                        url: "{% url 'get_artwork_modal' %}",
+                                        type: "get",
+                                        headers: {"X-CSRFToken": "{{ csrf_token }}"},
+                                        data: {"artwork_id": artworkId},
+                                        dataType: "json",
+                                        success: function(response) {
+                                            if (response.success === true) {
+                                                $("#artwork-modals-container").append(response.html);
+                                                var modal = $("#artwork-modal-" + artworkId);
+                                                modal.modal('show');
+                                                modal.on("hidden.bs.modal", function () {
+                                                    $("#artwork-modal-" + artworkId + " video").trigger("pause");
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
                             });
                             loadMoreArtworksIfNecessary();
                         }
