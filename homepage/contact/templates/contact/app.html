@@ -1,12 +1,12 @@
 {% load is_night %}
 {% load staticfiles %}
 
-<div id="contact" class="{% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %} text-center" style="width: 100%; z-index: 1337;">
+<div id="contact" class="pb-5 pt-5 {% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %} text-center" style="width: 100%; z-index: 1337;">
     <div id="visualization-demo" style="position: relative; height: 500px; width: 100%;">
         <img src="{% static 'img/me.jpeg' %}" class="mt-3 mb-3"
              style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px; max-width: 100%; -webkit-border-radius: 100px;-moz-border-radius: 100px;border-radius: 100px;">
     </div>
-    <div class="container {% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center">
+    <div class="container">
         <h1 class="fancy header bg-gradient-target bg-clip-text {{ gradient.css_class }}">
             Contact
         </h1>

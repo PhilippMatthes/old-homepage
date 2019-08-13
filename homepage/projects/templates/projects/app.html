@@ -2,7 +2,7 @@
 {% load is_night %}
 
 
-<div id="projects-app-container" class="container mt-5 mb-5">
+<div id="projects-app-container" class="container  pb-5 pt-5 {% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %}">
     <h1 class="fancy header {% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center">
         Commercial Projects
     </h1>

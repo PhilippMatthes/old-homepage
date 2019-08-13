@@ -1,7 +1,7 @@
 {% load staticfiles %}
 {% load is_night %}
 
-<div class="container mt-5 mb-5 text-center" style="position: relative;">
+<div class="container  pb-5 pt-5 {% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %} text-center" style="position: relative;">
 
     <div id="artwork-container" class="masonry text-center" style="margin-top: 100px;">
 

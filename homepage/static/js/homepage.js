@@ -12,12 +12,12 @@ $(document).ready(function() {
             var rect = $(this).get(0).getBoundingClientRect();
             var x = Math.abs(rect.x - event.clientX) / rect.width * 100;
             var y = Math.abs(rect.y - event.clientY) / rect.height * 100;
-            x = -(x-50)/5;
-            y = -(y-50)/5;
+            xR = -(x-50)/5;
+            yR = -(y-50)/5;
             $(this).css({
-                "transform": "rotateY(" + x + "deg) rotateX(" + y + "deg)",
+                "transform": "rotateY(" + xR + "deg) rotateX(" + yR + "deg)",
             });
-            shine.style.backgroundImage = `radial-gradient(circle at ${100-x}% ${100-y}%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0))`;
+            shine.style.backgroundImage = `radial-gradient(circle at ${100 - x}% ${y}%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0))`;
         });
 
         element.mouseleave(function() {
