@@ -62,8 +62,8 @@
                                 targets: id,
                                 scale: 1,
                                 opacity: 1,
-                                easing: "easeInOutSine",
-                                duration: 1000,
+                                easing: "easeOutSine",
+                                duration: 500,
                             });
                             $(id).click(function() {
                                 var modal = $("#artwork-modal-" + artworkId);
@@ -85,6 +85,26 @@
                                                 modal.on("hidden.bs.modal", function () {
                                                     $("#artwork-modal-" + artworkId + " video").trigger("pause");
                                                 });
+                                                {% if user and user.is_superuser %}
+                                                $("#artwork-modal-delete-button-" + artworkId).click(function() {
+                                                    if (confirm("Delete this artwork?")) {
+                                                        $.post({
+                                                            url: "{% url 'delete_artwork' %}",
+                                                            headers: {"X-CSRFToken": "{{ csrf_token }}"},
+                                                            dataType: "json",
+                                                            data: {"artwork_id": artworkId},
+                                                            success: function(response) {
+                                                                if (response.success !== true) {
+                                                                    alert("Unable to delete this artwork.");
+                                                                } else {
+                                                                    modal.modal('hide');
+                                                                    $("#art-" + artworkId).remove();
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                                {% endif %}
                                             }
                                         }
                                     });

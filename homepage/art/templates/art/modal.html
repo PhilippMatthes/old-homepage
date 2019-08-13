@@ -5,6 +5,7 @@
         <button id="artwork-modal-close-button-{{ artwork.id }}" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+
       </div>
       <div class="modal-body p-0">
         {% if artwork.video %}
@@ -13,6 +14,17 @@
             <img style="width: 100%; height: 100%;" src="{{ artwork.file.url }}">
         {% endif %}
       </div>
+
+      {% if user and user.is_superuser %}
+
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="artwork-modal-delete-button-{{ artwork.id }}" type="button">
+              Delete
+        </button>
+      </div>
+
+      {% endif %}
+
     </div>
   </div>
 </div>

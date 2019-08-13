@@ -29,5 +29,17 @@ def get_artwork_modal(request):
         return JsonResponse({"success": False})
     return JsonResponse({
         "success": True,
-        "html": render_to_string("art/modal.html", context={"artwork": artwork})
+        "html": render_to_string("art/modal.html", context={"artwork": artwork, "user": request.user})
     })
+
+
+def delete_artwork(request):
+    artwork_id = request.POST.get("artwork_id")
+    if not artwork_id:
+        return JsonResponse({"success": False})
+    try:
+        artwork = Artwork.objects.get(id=artwork_id)
+    except ObjectDoesNotExist:
+        return JsonResponse({"success": False})
+    artwork.delete()
+    return JsonResponse({"success": True})
