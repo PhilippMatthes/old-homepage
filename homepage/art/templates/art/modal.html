@@ -9,7 +9,7 @@
       </div>
       <div class="modal-body p-0">
         {% if artwork.video %}
-            <video id="artwork-modal-video-{{ artwork.id }}" autoplay style="width: 100%;" controls playsinline preload="none" src="{{ artwork.video.file.url }}" type='video/mp4'></video>
+            <video id="artwork-modal-video-{{ artwork.id }}" autoplay style="width: 100%;" controls playsinline preload="none" src="{% url 'stream_video' artwork.video.pk %}" type='video/mp4'></video>
         {% else %}
             <img style="width: 100%; height: 100%;" src="{{ artwork.file.url }}">
         {% endif %}
