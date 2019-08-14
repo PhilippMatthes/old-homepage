@@ -25,6 +25,7 @@ from . import settings
 from contact import urls as contact_urls
 from art import urls as art_urls
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
