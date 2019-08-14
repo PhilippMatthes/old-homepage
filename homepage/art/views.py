@@ -41,5 +41,9 @@ def delete_artwork(request):
         artwork = Artwork.objects.get(id=artwork_id)
     except ObjectDoesNotExist:
         return JsonResponse({"success": False})
+    if not request.user:
+        return JsonResponse({"success": False})
+    if not request.user.is_superuser:
+        return JsonResponse({"success": False})
     artwork.delete()
     return JsonResponse({"success": True})
