@@ -128,8 +128,21 @@
 
             window.addEventListener("resize", onWindowResize, false);
 
+            var runningAnimation = anime({
+                update: function(anim) {
+                    var x = 0.015 * Math.sin((anim.progress / 100) * 2 * Math.PI);
+                    var y = 0.02 * Math.cos((anim.progress / 100) * 2 * Math.PI);
+                    shaderMaterial.uniforms.mouseX.value = x;
+                    shaderMaterial.uniforms.mouseY.value = y;
+                },
+                easing: "easeInOutSine",
+                duration: 4000,
+                loop: true
+            });
+
             var section = $("#header-section");
             section.mousemove(function(event) {
+                runningAnimation.pause();
                 var rect = $(this).get(0).getBoundingClientRect();
                 var effectFactor = 0.07;
                 var x = (Math.abs(rect.x - event.clientX) / rect.width - 0.5) * effectFactor;
@@ -139,12 +152,7 @@
             });
 
             section.mouseleave(function() {
-                anime({
-                    targets: [shaderMaterial.uniforms.mouseX, shaderMaterial.uniforms.mouseY],
-                    value: 0,
-                    easing: "easeInOutSine",
-                    duration: 500,
-                });
+                runningAnimation.play();
             });
         }
     });
