@@ -95,8 +95,10 @@
                     vec2 vScrollOffset = vec2(0, scrollOffset);
 
                     float depth = texture2D(depthTexture, vUv).r;
-
                     gl_FragColor = texture2D(texture, vUv + vMouse * (1.0 - depth) + vScrollOffset);
+                    // Do some edge anti aliasing, because the image contains
+                    // a premultiplied alpha channel
+                    gl_FragColor.rgb = gl_FragColor.rgb * gl_FragColor.a;
                 }
             `;
 
