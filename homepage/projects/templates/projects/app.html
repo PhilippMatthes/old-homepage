@@ -1,32 +1,39 @@
 {% load staticfiles %}
 {% load is_night %}
 
+<div style="position: relative">
+    <div style="position: absolute; top: 0; left: 0; bottom: 0; right: 0;"
+         class="{% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %}"></div>
 
-<div id="projects-app-container" class="container  pb-5 pt-5 {% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %}">
-    <h1 class="fancy header {% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center">
-        Commercial Projects
-    </h1>
-    <p class="{% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center mt-3">
-        Here is a selection of commercial projects that I realized together with my clients.
-    </p>
-    <div class="card-columns card-columns-lg text-center" style="margin-top: 100px;">
-    {% for project in projects %}
-        <div id="project-{{project.id}}" class="project card rounded {% if now|is_night %}bg-dark border-dark text-white{% else %}bg-white text-dark border-light{% endif %} shadow-lg"
-             style="position: relative; opacity: 0">
-            <img class="card-img-top rounded" src="{{ project.thumbnail.url }}" style="width: 100%;">
-            <div class="card-body text-left">
-                <h4 class="font-weight-light m-0"><span class="{{ service.icon_css }}"></span> {{ project.title }}</h4>
-                <p class="mt-2">{{ project.description }}</p>
-                {% if project.readable_audio %}
-                <button class="btn btn-sm {% if now|is_night %}btn-outline-light{% else %}btn-outline-primary{% endif %} read-button"
-                        data-audio-url="{{ project.readable_audio.url }}"
-                ><span class="fas fa-assistive-listening-systems"></span> Assistive reading <span class="badge badge-secondary">BETA</span></button>
-                {% endif %}
+    <div id="projects-app-container" class="container pb-5 pt-5" style="position: relative;">
+
+        <h1 style="z-index: 2" class="fancy header {% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center">
+            Commercial Projects
+        </h1>
+        <p class="{% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center mt-3">
+            Here is a selection of commercial projects that I realized together with my clients.
+        </p>
+        <div class="card-columns card-columns-lg text-center" style="margin-top: 100px;">
+        {% for project in projects %}
+            <div id="project-{{project.id}}" class="project card rounded {% if now|is_night %}bg-dark border-dark text-white{% else %}bg-white text-dark border-light{% endif %} shadow-lg"
+                 style="position: relative; opacity: 0">
+                <img class="card-img-top rounded" src="{{ project.thumbnail.url }}" style="width: 100%;">
+                <div class="card-body text-left">
+                    <h4 class="font-weight-light m-0"><span class="{{ service.icon_css }}"></span> {{ project.title }}</h4>
+                    <p class="mt-2">{{ project.description }}</p>
+                    {% if project.readable_audio %}
+                    <button class="btn btn-sm {% if now|is_night %}btn-outline-light{% else %}btn-outline-primary{% endif %} read-button"
+                            data-audio-url="{{ project.readable_audio.url }}"
+                    ><span class="fas fa-assistive-listening-systems"></span> Assistive reading <span class="badge badge-secondary">BETA</span></button>
+                    {% endif %}
+                </div>
             </div>
+        {% endfor %}
         </div>
-    {% endfor %}
     </div>
 </div>
+
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {

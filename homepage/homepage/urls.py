@@ -24,6 +24,7 @@ from . import settings
 
 from contact import urls as contact_urls
 from art import urls as art_urls
+from ui import urls as ui_urls
 
 
 urlpatterns = [
@@ -32,6 +33,7 @@ urlpatterns = [
 
     url(r'^contact/', include(contact_urls)),
     url(r'^art/', include(art_urls)),
+    url(r'^ui/', include(ui_urls)),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

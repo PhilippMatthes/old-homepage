@@ -27,7 +27,6 @@ class Renderable:
         return render_to_string(self.template_name, context={"model": self})
 
 
-
 class Gradient(models.Model):
     color_steps = models.TextField()
 

@@ -7,7 +7,11 @@
 
     {% include 'siri/app.html' %}
 
-    <nav class="navigation-element navbar navbar-expand-lg navbar-dark shadow animate-background-transition bg-gradient-target {{ gradient.css_class }}" style="position: fixed; width: 100%; top: 0; z-index: 1337; opacity: 0.0;">
+    <nav class="navigation-element navbar navbar-expand-lg navbar-dark shadow" style="position: fixed; width: 100%; top: 0; z-index: 1337; opacity: 0.0;">
+        <div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: -2; opacity: 0.5;" class="animate-background-transition bg-gradient-target {{ gradient.css_class }}"></div>
+        <div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: -1" class="blurry-background"></div>
+
+
         <div class="container">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggler" aria-controls="navbar-toggler" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon text-white"></span>
@@ -81,11 +85,12 @@
     {% include 'contact/app.html' %}
     {% include 'art/app.html' %}
 
-    <footer id="footer" class="{% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %} text-center" style="width: 100%; z-index: 1337;">
+
+    <footer id="footer" class="{% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %} text-center" style="width: 100%; z-index: 1337; position: relative;">
         <div class="container {% if now|is_night %}text-light{% else %}text-dark{% endif %} text-center">
-            <h2 class="mt-5 bg-gradient-target bg-clip-text {{ gradient.css_class }}"
+            <h2 class="pt-5 bg-gradient-target bg-clip-text {{ gradient.css_class }}"
                 style="font-size: 20px; font-weight: 700;">Created with ❤️ by Philipp Matthes.</h2>
-            <p class="mt-2">Clara-Viebig-Straße 9, 01159 Dresden</p>
+            <p class="pt-2 pb-5">Clara-Viebig-Straße 9, 01159 Dresden</p>
         </div>
     </footer>
 

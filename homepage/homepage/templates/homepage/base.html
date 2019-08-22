@@ -33,7 +33,7 @@
 
     {% block body %}{% endblock %}
 
-    <svg>
+    <svg style="display: none;">
         <defs>
             {% for g in gradients %}
                 {{ g.svg_gradient|safe }}
