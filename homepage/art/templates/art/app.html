@@ -1,17 +1,23 @@
 {% load staticfiles %}
 {% load is_night %}
 
-<div class="container  pb-5 pt-5 {% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %} text-center" style="position: relative;">
+<div style="position: relative">
+    <div style="position: absolute; top: 0; left: 0; bottom: 0; right: 0;"
+         class="{% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %}"></div>
 
-    <div id="artwork-container" class="masonry text-center" style="margin-top: 100px;">
+    <div class="container  pb-5 pt-5 text-center" style="position: relative;">
+
+        <div id="artwork-container" class="masonry text-center" style="margin-top: 100px;">
+
+        </div>
+
+        <p class="mt-5" id="artwork-end-hint" style="opacity: 0;">So far, that's all.</p>
 
     </div>
 
-    <p class="mt-5" id="artwork-end-hint" style="opacity: 0;">So far, that's all.</p>
+    <div id="artwork-modals-container">
 
-</div>
-
-<div id="artwork-modals-container">
+    </div>
 
 </div>
 

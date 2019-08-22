@@ -1,7 +1,10 @@
 {% load staticfiles %}
 {% load is_night %}
 
-<div>
+<div style="position: relative">
+
+    <div style="position: absolute; top: 0; left: 0; bottom: 0; right: 0;"
+         class="{% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %}"></div>
 
     <div id="header-section" class="container text-white" style="position: relative; padding-top: 50px;">
 
