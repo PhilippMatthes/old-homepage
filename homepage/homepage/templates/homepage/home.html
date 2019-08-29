@@ -16,7 +16,10 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggler" aria-controls="navbar-toggler" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon text-white"></span>
           </button>
+
           <a class="navbar-brand" style="font-weight: 700;" href="#">PHILIPPMATTH.ES</a>
+
+
 
           <div class="collapse navbar-collapse" id="navbar-toggler">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -57,13 +60,26 @@
               </li>
               {% endif %}
               <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+
             </ul>
-            <div class="my-2 my-lg-0">
-                <a class="btn btn-outline-light rounded my-2 my-sm-0" href="tel:+49 176 42090978"><span class="fas fa-phone"></span> +49 176 42090978</a>
-            </div>
           </div>
+
+          <div class="collapse" id="collapse-gradient-selection">
+            {% for g in gradients %}
+                <button style="width: 30px; height: 30px; border-width: 2px; border-radius:20px; border-color: white; border-style: solid;"
+                  class="ml-1 {{ g.css_class }} shadow-sm" onclick="window.selectGradient({{ forloop.counter0 }})"
+                type="button" data-toggle="collapse" data-target="#collapse-gradient-selection" aria-expanded="false" aria-controls="collapse-gradient-selection"></button>
+            {% endfor %}
+          </div>
+
+          <button style="width: 38px; height: 38px; border-width: 2px; border-radius:20px; border-color: white; border-style: solid;"
+                  class="ml-2 navbar-brand shadow-sm animate-background-transition bg-gradient-target {{ gradient.css_class }}"
+                  type="button" data-toggle="collapse" data-target="#collapse-gradient-selection" aria-expanded="false" aria-controls="collapse-gradient-selection"></button>
+
         </div>
+
     </nav>
+
 
     {% if now|is_night %}
     <div class="navigation-element container" style="position: fixed; width: 100%; top: 64px; left: 50%; transform: translate(-50%, 0); z-index: 1337; opacity: 0.0;">
@@ -122,9 +138,13 @@
             {% endfor %}
         ];
         $(".bg-gradient-trigger").click(function() {
+            window.selectGradient((currentGradientIndex + 1) % gradientClasses.length);
+        });
+
+        window.selectGradient = function(index) {
             var bgGradientTargets = $(".bg-gradient-target");
             bgGradientTargets.removeClass(gradientClasses[currentGradientIndex]);
-            currentGradientIndex = (currentGradientIndex + 1) % gradientClasses.length;
+            currentGradientIndex = index;
             bgGradientTargets.addClass(gradientClasses[currentGradientIndex]);
 
             var svgStrokeTargets = $(".svg-stroke-target g");
@@ -132,7 +152,7 @@
 
             window.shaderMaterial.uniforms.colorStart.value = new THREE.Color(gradientStartColors[currentGradientIndex]);
             window.shaderMaterial.uniforms.colorEnd.value = new THREE.Color(gradientEndColors[currentGradientIndex]);
-        });
+        };
 
         var readingAudios = [];
 
