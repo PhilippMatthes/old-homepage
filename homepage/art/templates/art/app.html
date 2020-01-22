@@ -1,9 +1,7 @@
 {% load staticfiles %}
-{% load is_night %}
 
 <div style="position: relative">
-    <div style="position: absolute; top: 0; left: 0; bottom: 0; right: 0;"
-         class="{% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %}"></div>
+    <div style="position: absolute; top: 0; left: 0; bottom: 0; right: 0;" class="bg-mode"></div>
 
     <div class="container  pb-5 pt-5 text-center" style="position: relative;">
 
@@ -11,7 +9,7 @@
 
         </div>
 
-        <p class="mt-5" id="artwork-end-hint" style="opacity: 0;">So far, that's all.</p>
+        <p class="mt-5 text-mode" id="artwork-end-hint" style="opacity: 0;">So far, that's all.</p>
 
     </div>
 

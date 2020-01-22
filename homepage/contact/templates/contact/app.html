@@ -3,7 +3,7 @@
 
 <div style="position: relative">
     <div style="position: absolute; top: 0; left: 0; bottom: 0; right: 0;"
-         class="{% if now|is_night %}bg-dark-custom{% else %}bg-light{% endif %}"></div>
+         class="bg-mode"></div>
 
     <div id="contact" class="pb-5 pt-5 text-center" style="width: 100%; z-index: 1337; position: relative">
         <div id="visualization-demo" style="position: relative; height: 500px; width: 100%;">
@@ -14,8 +14,8 @@
             <h1 class="fancy header bg-gradient-target bg-clip-text {{ gradient.css_class }}">
                 Contact
             </h1>
-            <h5><a class="{% if now|is_night %}text-light{% else %}text-dark{% endif %}" href="tel:+49 176 42090978">+49 176 42090978</a></h5>
-            <h5><a class="{% if now|is_night %}text-light{% else %}text-dark{% endif %}" href="mailto:hello@philippmatth.es">hello@philippmatth.es</a></h5>
+            <h5><a class="text-mode" href="tel:+49 176 42090978">+49 176 42090978</a></h5>
+            <h5><a class="text-mode" href="mailto:hello@philippmatth.es">hello@philippmatth.es</a></h5>
         </div>
     </div>
 </div>

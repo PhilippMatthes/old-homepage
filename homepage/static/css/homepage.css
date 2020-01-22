@@ -50,6 +50,29 @@ nav .blurry-background {
     transition: opacity .2s ease-out;
 }
 
+.bg-mode {
+    background-color: #f8f8f8;
+}
+.border-mode {
+    border-color: #f8f8f8;
+}
+.text-mode {
+    color: #222222;
+}
+
+@media (prefers-color-scheme: dark) {
+    .bg-mode {
+        background-color: #222222;
+    }
+    .border-mode {
+        border-color: #222222;
+    }
+    .text-mode {
+        color: #f8f8f8;
+    }
+}
+
+
 .bg-animation {
     background-color: #232527 !important;
 }
