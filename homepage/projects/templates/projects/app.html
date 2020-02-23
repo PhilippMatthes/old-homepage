@@ -16,7 +16,7 @@
         <div class="card-columns card-columns-lg text-center" style="margin-top: 100px;">
         {% for project in projects %}
             <div id="project-{{project.id}}" class="project card rounded bg-mode border-mode text-mode shadow-lg"
-                 style="position: relative; opacity: 0">
+                 style="position: relative;">
                 <img class="card-img-top rounded" src="{{ project.thumbnail.url }}" style="width: 100%;">
                 <div class="card-body text-left">
                     <h4 class="font-weight-light m-0"><span class="{{ service.icon_css }}"></span> {{ project.title }}</h4>
@@ -32,37 +32,3 @@
         </div>
     </div>
 </div>
-
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-        var offset = window.innerHeight / 2;
-
-        function layoutResize() {
-            offset = window.innerHeight / 2
-        }
-
-        function layoutScroll() {
-            var element = $("#projects-app-container");
-            var top = element.offset().top;
-            var deltaTop = window.scrollY - top + offset;
-            if (deltaTop > 0) {
-                anime({
-                    targets: '.project',
-                    opacity: 1,
-                    duration: 200,
-                    easing: 'easeOutSine',
-                    delay: anime.stagger(100)
-                });
-                window.removeEventListener("scroll", layoutScroll);
-                window.removeEventListener("resize", layoutResize);
-            }
-        }
-
-        window.addEventListener("scroll", layoutScroll);
-        window.addEventListener("resize", layoutResize);
-
-        layoutScroll()
-    });
-</script>

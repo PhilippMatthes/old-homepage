@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'timeline',
     'contact',
     'art',
+    'blog',
 ]
 
 MIDDLEWARE = [

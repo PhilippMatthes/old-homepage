@@ -1,0 +1,63 @@
+
+
+<div style="position: relative;">
+    <div style="position: absolute; top: 0; left: 0; bottom: 0; right: 0;"
+         class="bg-mode"></div>
+
+    <div id="blog-section" class="container pb-5 pt-5" style="position: relative; transform: scale(0);">
+
+        <h1 style="z-index: 2" class="fancy header text-mode text-center">
+            Recent Blog Entries
+        </h1>
+        <p class="text-mode text-center mt-3">
+            I host my blog on <a target="_blank" href="https://xn--53hy230o.ws/">☕💻.ws</a> and write
+            specialist articles on the topic of web and software development.
+        </p>
+        <div id="blog-container" class="card-columns card-columns-lg text-center" style="margin-top: 4rem;">
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(event) {
+
+    $.ajax({
+        url: "https://xn--53hy230o.ws/api/entries/",
+        type: "get",
+        data: {"limit": 3},
+        dataType: "json",
+        success: function(data) {
+            var container = $("#blog-container");
+            if (data.entries.length !== 0) anime({
+                targets: "#blog-section",
+                scale: 1,
+                duration: 1000,
+                easing: 'easeInOutSine'
+            });
+            for (var i = 0; i < data.entries.length; i++) {
+                var model = data.entries[i];
+                var fields = model.fields;
+                var createdStr = new Date(fields.created).toLocaleDateString("en-US");
+                var template = `
+                    <div id="entry-${model.pk}" class="blog-entry card rounded bg-mode border-mode text-mode shadow-lg"
+                        style="position: relative;">
+                        <div class="card-body text-left">
+                            <h2 class="font-weight-light m-0">${fields.title}</h4>
+                            <p class="mt-4">${fields.description}</p>
+                            <p class="text-secondary">Created on ${createdStr} by ${fields.authors}</p>
+                            <a target="_blank" href="https://xn--53hy230o.ws/entries/${model.pk}" class="btn btn-sm btn-outline-primary">
+                                <span class="fas fa-text"></span> Read more</a>
+                        </div>
+                    </div>
+                `;
+                container.append(template);
+            }
+        }
+    });
+
+});
+
+</script>
