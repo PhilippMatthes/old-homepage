@@ -12,10 +12,14 @@ def send_message(request):
     if not text:
         return JsonResponse({"success": False})
 
-    text = text[:5000]
+    text_to_send = f'Message:\n' \
+                   f'{text}\n' \
+                   f'\n' \
+                   f'Meta Information:\n' \
+                   f'{request.META}'
 
     try:
-        send_mail("New Message from your homepage", text, settings.EMAIL_FROM, [settings.EMAIL_TO])
+        send_mail("New Message from your homepage", text_to_send, settings.EMAIL_FROM, [settings.EMAIL_TO])
         return JsonResponse({"success": True})
 
     except BadHeaderError:
