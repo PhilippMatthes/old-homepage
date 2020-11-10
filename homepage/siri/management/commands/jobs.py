@@ -18,7 +18,8 @@ def get_weather_data():
             arr[i] = elem.replace("N", " North").replace("S", " South").replace("W", " West").replace("E", " East")
         return arr[(val % 16)]
 
-    r = requests.get('http://api.openweathermap.org/data/2.5/weather?q=Dresden&APPID=234aa0e2c69010e09edd12b9f018ba8c&units=metric')
+    # NOTE: removed old, invalidated api key
+    r = requests.get('http://api.openweathermap.org/data/2.5/weather?q=Dresden&APPID=key&units=metric')
     weather_data = r.json()
 
     text = """Here is the current forecast of Dresden, Germany.
